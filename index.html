@@ -71,7 +71,7 @@
           </div>
           <div>
             <div class="flex items-center gap-2">
-              <h1 class="text-base sm:text-lg font-bold text-slate-900 tracking-tight leading-tight">TASIK EXCELLENT</h1>
+              <h1 class="text-base sm:text-lg font-bold text-slate-900 tracking-tight leading-tight">PresensiHub</h1>
               <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-emerald-100 text-emerald-800">
                 Google Sheets
               </span>
@@ -102,6 +102,16 @@
             <i data-lucide="settings-2" class="w-4 h-4"></i>
             <span class="hidden sm:inline">Pengaturan Sheets</span>
           </button>
+
+          <!-- Setup Guide Button -->
+          <button id="btnOpenGuide" type="button" class="inline-flex items-center gap-2 px-3 py-2 text-xs sm:text-sm font-medium rounded-lg text-brand-700 bg-brand-50 hover:bg-brand-100 border border-brand-200 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-400">
+            <i data-lucide="code-2" class="w-4 h-4"></i>
+            <span class="hidden sm:inline">Panduan Script</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
 
   <section class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white py-6 shadow-inner">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -239,63 +249,6 @@
                 </div>
               </div>
             </div>
-            <!-- FIELD TANGGAL & WAKTU DENGAN TOMBOL OTOMATIS -->
-<div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
-  <div class="flex items-center justify-between">
-    <label class="text-xs font-bold uppercase tracking-wider text-slate-600 flex items-center gap-1.5">
-      <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-      </svg>
-      WAKTU CHECK IN
-    </label>
-
-    <!-- Tombol Set Waktu Sekarang -->
-    <button type="button" onclick="setWaktuOtomatis()" class="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-100 hover:bg-emerald-200 text-emerald-800 text-xs font-semibold rounded-lg transition-colors active:scale-95 shadow-sm">
-      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-      </svg>
-      Waktu Sekarang
-    </button>
-  </div>
-
-  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-    <!-- Input Tanggal -->
-    <div>
-      <span class="text-[11px] text-slate-500 font-medium mb-1 block">Tanggal</span>
-      <input type="date" id="inputTanggal" name="tanggal" required class="w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none text-slate-800 font-medium shadow-sm">
-    </div>
-
-    <!-- Input Jam -->
-    <div>
-      <span class="text-[11px] text-slate-500 font-medium mb-1 block">Jam (WIB / Lokal)</span>
-      <input type="time" step="1" id="inputJam" name="jam" required class="w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none text-slate-800 font-medium shadow-sm">
-    </div>
-  </div>
-</div>
-
-<script>
-  // Fungsi untuk mengisi tanggal & jam saat tombol ditekan
-  function setWaktuOtomatis() {
-    const sekarang = new Date();
-
-    // Format Tanggal: YYYY-MM-DD
-    const tahun = sekarang.getFullYear();
-    const bulan = String(sekarang.getMonth() + 1).padStart(2, '0');
-    const hari = String(sekarang.getDate()).padStart(2, '0');
-    document.getElementById('inputTanggal').value = `${tahun}-${bulan}-${hari}`;
-
-    // Format Jam: HH:MM:SS
-    const jam = String(sekarang.getHours()).padStart(2, '0');
-    const menit = String(sekarang.getMinutes()).padStart(2, '0');
-    const detik = String(sekarang.getSeconds()).padStart(2, '0');
-    document.getElementById('inputJam').value = `${jam}:${menit}:${detik}`;
-  }
-
-  // Otomatis terisi saat pertama kali web dimuat
-  window.addEventListener('DOMContentLoaded', () => {
-    setWaktuOtomatis();
-  });
-</script>
 
             <!-- Attendance Type Selector (Visual Radio Cards without Check-Out) -->
             <div>
