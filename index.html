@@ -1,0 +1,1789 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CHECK IN TASIK EXCELLENT</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              800: '#166534',
+              900: '#14532d',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    /* Custom scrollbar and animations */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    .video-mirror {
+      transform: scaleX(-1);
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col antialiased selection:bg-brand-500 selection:text-white">
+
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20">
+        <!-- Logo & Branding -->
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-tr from-brand-600 to-emerald-400 flex items-center justify-center text-white shadow-md shadow-brand-500/20">
+            <i data-lucide="shield-check" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="text-base sm:text-lg font-bold text-slate-900 tracking-tight leading-tight">PresensiHub</h1>
+              <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-emerald-100 text-emerald-800">
+                Google Sheets
+              </span>
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200">
+                <i data-lucide="sparkles" class="w-3 h-3 text-indigo-500"></i> Gemini AI
+              </span>
+            </div>
+            <p class="text-xs text-slate-500 hidden sm:block">Portal Kehadiran Karyawan Berbasis Geotag, Webcam & Gemini Vision</p>
+          </div>
+        </div>
+
+        <!-- Top Right Action Controls -->
+        <div class="flex items-center gap-2 sm:gap-3">
+          <!-- Connection Status Pill -->
+          <div id="connectionStatusBadge" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-amber-50 text-amber-700 border border-amber-200/80">
+            <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+            <span id="connectionStatusText">URL Belum Disetel</span>
+          </div>
+
+          <!-- Share / Deployment Guide Button -->
+          <button id="btnOpenShare" type="button" onclick="openShareModal()" class="inline-flex items-center gap-2 px-3 py-2 text-xs sm:text-sm font-semibold rounded-lg text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 transition-colors">
+            <i data-lucide="share-2" class="w-4 h-4"></i>
+            <span class="hidden sm:inline">Bagikan ke Karyawan</span>
+          </button>
+
+          <!-- Settings Button -->
+          <button id="btnOpenConfig" type="button" class="inline-flex items-center gap-2 px-3 py-2 text-xs sm:text-sm font-medium rounded-lg text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-300">
+            <i data-lucide="settings-2" class="w-4 h-4"></i>
+            <span class="hidden sm:inline">Pengaturan Sheets</span>
+          </button>
+
+          <!-- Setup Guide Button -->
+          <button id="btnOpenGuide" type="button" class="inline-flex items-center gap-2 px-3 py-2 text-xs sm:text-sm font-medium rounded-lg text-brand-700 bg-brand-50 hover:bg-brand-100 border border-brand-200 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-400">
+            <i data-lucide="code-2" class="w-4 h-4"></i>
+            <span class="hidden sm:inline">Panduan Script</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white py-6 shadow-inner">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="text-center md:text-left">
+          <p class="text-xs sm:text-sm text-slate-300 flex items-center justify-center md:justify-start gap-1.5 font-medium">
+            <i data-lucide="calendar" class="w-4 h-4 text-brand-400"></i>
+            <span id="currentDateDisplay">Memuat tanggal...</span>
+          </p>
+          <div class="flex items-baseline justify-center md:justify-start gap-2 mt-0.5">
+            <h2 id="currentTimeDisplay" class="text-3xl sm:text-4xl font-extrabold tracking-tight font-mono text-emerald-400">
+              00:00:00
+            </h2>
+            <span class="text-xs px-1.5 py-0.5 rounded bg-slate-700/80 text-slate-200 font-semibold uppercase tracking-wider">WIB</span>
+          </div>
+        </div>
+
+        <!-- Quick Summary Metrics -->
+        <div class="grid grid-cols-3 gap-2 sm:gap-4 w-full md:w-auto">
+          <div class="bg-slate-800/80 border border-slate-700 rounded-xl p-2.5 sm:px-4 sm:py-2.5 text-center">
+            <span class="block text-[11px] sm:text-xs text-slate-400 font-medium">Total Presensi</span>
+            <span id="statTodayCount" class="text-lg sm:text-xl font-bold text-white">0</span>
+          </div>
+          <div class="bg-slate-800/80 border border-slate-700 rounded-xl p-2.5 sm:px-4 sm:py-2.5 text-center">
+            <span class="block text-[11px] sm:text-xs text-slate-400 font-medium">Check-In Hadir</span>
+            <span id="statCheckInCount" class="text-lg sm:text-xl font-bold text-emerald-400">0</span>
+          </div>
+          <div class="bg-slate-800/80 border border-slate-700 rounded-xl p-2.5 sm:px-4 sm:py-2.5 text-center">
+            <span class="block text-[11px] sm:text-xs text-slate-400 font-medium">Izin / Sakit</span>
+            <span id="statPermitCount" class="text-lg sm:text-xl font-bold text-indigo-400">0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+    <!-- Banner Pemberitahuan Status Koneksi Google Sheets -->
+    <div id="sheetsSetupBanner" class="mb-6 bg-gradient-to-r from-emerald-500/10 via-brand-50 to-teal-50 border border-emerald-200/80 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm">
+      <div class="flex items-start sm:items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center flex-shrink-0 shadow-md shadow-emerald-600/20">
+          <i data-lucide="sheet" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h3 class="text-sm sm:text-base font-bold text-slate-900">Hubungkan ke Google Sheets</h3>
+            <span class="text-[10px] bg-amber-100 text-amber-800 font-semibold px-2 py-0.5 rounded-full" id="bannerStatusPill">Belum Terhubung</span>
+          </div>
+          <p class="text-xs text-slate-600 mt-0.5">
+            Tautkan Web App Google Apps Script agar setiap presensi, foto selfie, & koordinat GPS otomatis tersimpan di spreadsheet Anda secara real-time.
+          </p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 w-full sm:w-auto">
+        <button type="button" onclick="toggleModal('modalConfig', true)" class="flex-1 sm:flex-none px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-md shadow-emerald-600/20 transition-all flex items-center justify-center gap-1.5">
+          <i data-lucide="link" class="w-3.5 h-3.5"></i> Hubungkan Sekarang
+        </button>
+        <button type="button" onclick="toggleModal('modalGuide', true)" class="flex-1 sm:flex-none px-3 py-2.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-semibold rounded-xl transition-all flex items-center justify-center gap-1.5">
+          <i data-lucide="help-circle" class="w-3.5 h-3.5"></i> Panduan Script
+        </button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
+      
+      <!-- LEFT COLUMN: Form Presensi -->
+      <div class="lg:col-span-7 space-y-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+          <div class="border-b border-slate-100 p-5 bg-gradient-to-b from-slate-50/50 to-white">
+            <div class="flex items-center justify-between">
+              <div>
+                <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                  <i data-lucide="user-check" class="w-5 h-5 text-brand-600"></i>
+                  Formulir Presensi Kerja
+                </h2>
+                <p class="text-xs text-slate-500 mt-0.5">Lengkapi data kehadiran Anda dengan akurat</p>
+              </div>
+              <span class="inline-flex items-center gap-1 text-xs text-brand-600 bg-brand-50 font-semibold px-2.5 py-1 rounded-full border border-brand-100">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Verifikasi Aktif
+              </span>
+            </div>
+          </div>
+
+          <form id="attendanceForm" class="p-5 sm:p-6 space-y-5" onsubmit="handleFormSubmit(event)">
+            <!-- Employee Info Row -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="employeeName" class="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wide">
+                  Nama Lengkap <span class="text-rose-500">*</span>
+                </label>
+                <div class="relative">
+                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                    <i data-lucide="user" class="w-4 h-4"></i>
+                  </div>
+                  <input type="text" id="employeeName" required placeholder="Contoh: RENDI AKBAR" class="w-full pl-9 pr-3 py-2.5 text-sm bg-slate-50/70 border border-slate-300 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all font-medium">
+                </div>
+              </div>
+
+              <div>
+                <label for="employeeId" class="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wide">
+                  NIK / ID Karyawan <span class="text-rose-500">*</span>
+                </label>
+                <div class="relative">
+                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                    <i data-lucide="badge-percent" class="w-4 h-4"></i>
+                  </div>
+                  <input type="text" id="employeeId" required placeholder="Contoh: FI3459128" class="w-full pl-9 pr-3 py-2.5 text-sm bg-slate-50/70 border border-slate-300 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all font-medium">
+                </div>
+              </div>
+            </div>
+
+            <!-- Division and Shift Row -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="divisionSelect" class="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wide">
+                  Cabang / Divisi <span class="text-rose-500">*</span>
+                </label>
+                <div class="relative">
+                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                    <i data-lucide="building-2" class="w-4 h-4"></i>
+                  </div>
+                  <select id="divisionSelect" required class="w-full pl-9 pr-8 py-2.5 text-sm bg-slate-50/70 border border-slate-300 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all font-medium appearance-none">
+                    <option value="" disabled selected>PILIH RESTO</option>
+                    <option value="LAZATTO MANGKUBUMI">LAZATTO MANGKUBUMI</option>
+                    <option value="LAZATTO KERKOF">LAZATTO KERKOF</option>
+                    <option value="LAZATTO RAJAPOLAH">LAZATTO RAJAPOLAH</option>
+                    <option value="LAZATTO RAJAPOLAH SATELIT">LAZATTO RAJAPOLAH SATELIT</option>
+                    <option value="LAZATTO CIAWI TASIK">LAZATTO CIAWI TSK</option>
+                    <option value="NGEUMI MANGKUBUMI">NGEUMI MANGKUBUMI</option>
+                    <option value="NGEUMI INDIHIANG">NGEUMI INDIHIANG</option>
+                    <option value="NGEUMI CIGEUREUNG">NGEUMI CIGEUREUNG</option>
+                  </select>
+                  <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-slate-400">
+                    <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <label for="shiftSelect" class="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wide">
+                  Shift Kerja <span class="text-rose-500">*</span>
+                </label>
+                <div class="relative">
+                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                    <i data-lucide="clock" class="w-4 h-4"></i>
+                  </div>
+                  <select id="shiftSelect" required class="w-full pl-9 pr-8 py-2.5 text-sm bg-slate-50/70 border border-slate-300 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all font-medium appearance-none">
+                    <option value="Shift Pagi (08:00 - 17:00)">Shift Satu (00:00 - 08:00)</option>
+                    <option value="Shift Siang (13:00 - 21:00)">Shift Dua (08:00 - 16:00)</option>
+                    <option value="Shift Malam (21:00 - 06:00)">Shift Tiga (16:00 - 23:59)</option>
+                    <option value="Flexible / Full Day">Flexible / Full Day</option>
+                  </select>
+                  <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-slate-400">
+                    <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Attendance Type Selector (Visual Radio Cards without Check-Out) -->
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-wide">
+                Tipe Presensi <span class="text-rose-500">*</span>
+              </label>
+              <div class="grid grid-cols-2 gap-3">
+                <label class="cursor-pointer relative flex flex-col items-center justify-center p-3.5 rounded-xl border-2 border-brand-500 bg-brand-50/40 text-brand-900 transition-all text-center hover:bg-brand-50" id="labelCheckIn">
+                  <input type="radio" name="attendanceType" value="Check-In (Masuk)" checked class="sr-only" onchange="updateAttendanceTypeVisual()">
+                  <i data-lucide="log-in" class="w-5 h-5 text-brand-600 mb-1"></i>
+                  <span class="text-xs sm:text-sm font-bold">Check-In Masuk</span>
+                  <span class="text-[10px] text-slate-500">Mulai Jam Kerja</span>
+                </label>
+
+                <label class="cursor-pointer relative flex flex-col items-center justify-center p-3.5 rounded-xl border-2 border-slate-200 bg-white text-slate-700 transition-all text-center hover:bg-slate-50" id="labelPermit">
+                  <input type="radio" name="attendanceType" value="Izin / Sakit" class="sr-only" onchange="updateAttendanceTypeVisual()">
+                  <i data-lucide="file-text" class="w-5 h-5 text-indigo-500 mb-1"></i>
+                  <span class="text-xs sm:text-sm font-bold">Izin / Sakit</span>
+                  <span class="text-[10px] text-slate-500">Dengan Keterangan</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Notes / Remarks -->
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label for="attendanceNotes" class="block text-xs font-bold text-slate-700 uppercase tracking-wide">
+                  Catatan / Keterangan Tambahan
+                </label>
+                <button type="button" onclick="toggleAiNoteAssistant()" class="inline-flex items-center gap-1 text-xs font-semibold text-indigo-600 hover:text-indigo-800 bg-indigo-50 hover:bg-indigo-100 px-2.5 py-1 rounded-lg border border-indigo-200 transition-colors">
+                  <i data-lucide="sparkles" class="w-3.5 h-3.5 text-indigo-600"></i>
+                  <span>Bantu Tulis (Gemini AI)</span>
+                </button>
+              </div>
+
+              <div id="aiNoteBox" class="hidden mb-2 p-3 bg-gradient-to-r from-indigo-50/90 to-purple-50/90 rounded-xl border border-indigo-200 space-y-2">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-indigo-900 flex items-center gap-1.5">
+                    <i data-lucide="bot" class="w-4 h-4 text-indigo-600"></i> Asisten Catatan & Izin Gemini
+                  </span>
+                  <button type="button" onclick="toggleAiNoteAssistant(false)" class="text-indigo-400 hover:text-indigo-600">
+                    <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                  </button>
+                </div>
+                <div class="flex flex-wrap gap-1.5">
+                  <button type="button" onclick="setAiPromptPreset('Rencana kerja shift prima dan fokus pelayanan pelanggan')" class="px-2 py-0.5 rounded-md text-[11px] bg-white border border-indigo-200 text-indigo-700 hover:bg-indigo-50 font-medium">
+                    + Rencana Shift
+                  </button>
+                  <button type="button" onclick="setAiPromptPreset('Permohonan izin sakit karena demam dan flu, istirahat 1 hari')" class="px-2 py-0.5 rounded-md text-[11px] bg-white border border-indigo-200 text-indigo-700 hover:bg-indigo-50 font-medium">
+                    + Izin Sakit Formal
+                  </button>
+                  <button type="button" onclick="setAiPromptPreset('Izin terlambat 20 menit karena hambatan operasional kendaraan')" class="px-2 py-0.5 rounded-md text-[11px] bg-white border border-indigo-200 text-indigo-700 hover:bg-indigo-50 font-medium">
+                    + Izin Terlambat
+                  </button>
+                  <button type="button" onclick="setAiPromptPreset('Tugas dinas pengiriman dan stok antar unit cabang')" class="px-2 py-0.5 rounded-md text-[11px] bg-white border border-indigo-200 text-indigo-700 hover:bg-indigo-50 font-medium">
+                    + Operasional Antar Outlet
+                  </button>
+                </div>
+                <div class="flex gap-2">
+                  <input type="text" id="aiCustomPrompt" placeholder="Ketik inti alasan atau pilih preset di atas..." class="flex-1 px-3 py-1.5 text-xs bg-white border border-indigo-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                  <button type="button" onclick="generateNoteWithGemini()" id="btnGenerateAiNote" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-semibold flex items-center gap-1 transition-colors">
+                    <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Buat
+                  </button>
+                </div>
+              </div>
+
+              <textarea id="attendanceNotes" rows="2" placeholder="Tuliskan keterangan kegiatan, tugas di luar kantor, atau alasan izin..." class="w-full px-3 py-2.5 text-sm bg-slate-50/70 border border-slate-300 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all resize-none"></textarea>
+            </div>
+
+            <!-- Submit Action -->
+            <div class="pt-2">
+              <button id="btnSubmitAttendance" type="submit" class="w-full py-3.5 px-6 rounded-xl bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white font-bold text-sm sm:text-base shadow-lg shadow-brand-600/25 flex items-center justify-center gap-2 transition-all transform hover:-translate-y-0.5 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+                <i data-lucide="send" class="w-5 h-5"></i>
+                <span id="submitButtonText">Kirim Presensi Sekarang</span>
+              </button>
+              <p class="text-center text-[11px] text-slate-400 mt-2">
+                Data akan langsung terverifikasi dengan foto kamera dan lokasi GPS terkini.
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: Verification Card (Camera & GPS) -->
+      <div class="lg:col-span-5 space-y-6">
+        
+        <!-- Camera Selfie Section -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-lg bg-emerald-100 text-brand-700 flex items-center justify-center">
+                <i data-lucide="camera" class="w-4 h-4"></i>
+              </div>
+              <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide">Bukti Selfie Wajah</h3>
+            </div>
+            <span id="photoStatusBadge" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">
+              Wajib Foto
+            </span>
+          </div>
+
+          <!-- Video Camera Stream Container -->
+          <div class="relative bg-slate-900 rounded-xl overflow-hidden aspect-video sm:aspect-square flex items-center justify-center border border-slate-200 shadow-inner group">
+            <!-- Video feed -->
+            <video id="webcamVideo" autoplay playsinline muted class="w-full h-full object-cover video-mirror"></video>
+            
+            <!-- Snapshot Preview Image (Hidden by default) -->
+            <img id="photoPreviewImg" alt="Pratinjau Foto Presensi" class="w-full h-full object-cover hidden" />
+
+            <!-- Hidden canvas for capturing frame -->
+            <canvas id="photoCanvas" class="hidden"></canvas>
+
+            <!-- Face alignment guide overlay (visible while camera is active) -->
+            <div id="cameraGuideOverlay" class="absolute inset-0 pointer-events-none flex flex-col items-center justify-center p-4">
+              <div class="w-36 h-48 sm:w-44 sm:h-56 rounded-full border-2 border-dashed border-brand-400/70 flex items-center justify-center">
+                <span class="text-[11px] bg-slate-900/70 text-emerald-300 font-semibold px-2 py-0.5 rounded backdrop-blur-sm">
+                  Posisikan Wajah
+                </span>
+              </div>
+            </div>
+
+            <!-- Placeholder if camera off -->
+            <div id="cameraOffPlaceholder" class="absolute inset-0 bg-slate-900 flex flex-col items-center justify-center text-slate-400 p-4 text-center hidden">
+              <i data-lucide="camera-off" class="w-10 h-10 text-slate-500 mb-2"></i>
+              <p class="text-xs font-medium">Kamera tidak aktif atau izin ditolak.</p>
+              <button type="button" onclick="startCamera()" class="mt-3 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-white border border-slate-700 flex items-center gap-1.5">
+                <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Coba Nyalakan Lagi
+              </button>
+            </div>
+          </div>
+
+          <!-- Camera Controls Buttons -->
+          <div class="flex items-center gap-2">
+            <button id="btnCapturePhoto" type="button" onclick="takeSnapshot()" class="flex-1 py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 active:bg-black text-white text-xs sm:text-sm font-semibold flex items-center justify-center gap-1.5 shadow-sm transition-all">
+              <i data-lucide="aperture" class="w-4 h-4 text-emerald-400"></i>
+              <span>Ambil Foto Selfie</span>
+            </button>
+            
+            <button id="btnRetakePhoto" type="button" onclick="retakeSnapshot()" class="hidden py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-semibold flex items-center justify-center gap-1.5 transition-all">
+              <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+              <span>Ulangi</span>
+            </button>
+
+            <button id="btnSwitchCamera" type="button" onclick="switchCameraFacing()" title="Ganti Kamera Depan/Belakang" class="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition-all">
+              <i data-lucide="refresh-ccw" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+          <div id="aiVerificationSection" class="hidden pt-3 border-t border-slate-100 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                <i data-lucide="sparkles" class="w-4 h-4 text-indigo-600"></i> Audit Kesiapan Wajah (Gemini Vision)
+              </span>
+              <button type="button" onclick="analyzeSelfieWithGemini()" id="btnTriggerAiVision" class="px-2.5 py-1 text-[11px] font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 rounded-lg flex items-center gap-1 transition-colors">
+                <i data-lucide="scan-face" class="w-3 h-3"></i> Pindai dengan AI
+              </button>
+            </div>
+
+            <!-- AI Result Box -->
+            <div id="aiVisionResultBox" class="p-3 bg-gradient-to-r from-slate-50 to-indigo-50/40 rounded-xl border border-indigo-100 text-xs text-slate-700 space-y-1.5 hidden">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-slate-900" id="aiVisionHeadline">Status Kesiapan Terdeteksi</span>
+                <span id="aiReadinessScoreBadge" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">Skor: 95%</span>
+              </div>
+              <p id="aiVisionFeedback" class="text-slate-600 leading-relaxed text-[11px]"></p>
+              <div id="aiVisionMotivation" class="text-[11px] font-medium text-indigo-700 bg-white/80 p-2 rounded-lg border border-indigo-100 italic"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center">
+                <i data-lucide="map-pin" class="w-4 h-4"></i>
+              </div>
+              <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide">Lokasi Geotag (GPS)</h3>
+            </div>
+            <button type="button" onclick="requestGeolocation(true)" class="text-xs text-brand-600 hover:text-brand-700 font-semibold flex items-center gap-1">
+              <i data-lucide="locate-fixed" class="w-3.5 h-3.5"></i> Perbarui
+            </button>
+          </div>
+
+          <!-- Location Details Card -->
+          <div class="bg-slate-50 border border-slate-200/80 rounded-xl p-3.5 space-y-2 text-xs">
+            <div class="flex items-center justify-between text-slate-600">
+              <span class="font-medium text-slate-500">Status Koordinat:</span>
+              <span id="geoStatusText" class="font-bold text-amber-600 flex items-center gap-1">
+                <i data-lucide="loader-2" class="w-3 h-3 animate-spin"></i> Mendeteksi Lokasi...
+              </span>
+            </div>
+            <div class="flex items-center justify-between text-slate-700">
+              <span class="text-slate-500 font-medium">Latitude / Longitude:</span>
+              <span id="geoCoordinatesDisplay" class="font-mono font-semibold">-</span>
+            </div>
+            <div class="flex items-center justify-between text-slate-700">
+              <span class="text-slate-500 font-medium">Akurasi GPS:</span>
+              <span id="geoAccuracyDisplay" class="font-semibold">-</span>
+            </div>
+            <div id="geoMapLinkContainer" class="pt-1.5 border-t border-slate-200 hidden">
+              <a id="geoMapAnchor" href="#" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 font-semibold inline-flex items-center gap-1 text-xs">
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i> Buka Titik Lokasi di Google Maps
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="mt-8 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+      <div class="p-5 border-b border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <div>
+          <h2 class="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
+            <i data-lucide="history" class="w-5 h-5 text-indigo-600"></i>
+            Riwayat Presensi Perangkat Ini
+          </h2>
+          <p class="text-xs text-slate-500">Data tersimpan di penyimpanan browser lokal dan tersinkronisasi ke Google Sheets</p>
+        </div>
+
+        <div class="flex items-center gap-2 w-full sm:w-auto">
+          <button type="button" onclick="generateHRSummaryWithGemini()" id="btnAiSummary" class="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 rounded-lg transition-colors">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-indigo-600"></i> Ringkasan Harian (AI)
+          </button>
+          <button type="button" onclick="exportHistoryToCSV()" class="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors">
+            <i data-lucide="download" class="w-3.5 h-3.5"></i> Unduh CSV
+          </button>
+          <button type="button" onclick="clearLocalHistory()" class="inline-flex items-center justify-center p-2 text-xs font-semibold text-rose-600 hover:bg-rose-50 rounded-lg transition-colors" title="Hapus Riwayat Lokal">
+            <i data-lucide="trash-2" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <div id="aiDailyBriefingContainer" class="hidden p-5 bg-gradient-to-r from-indigo-900 via-slate-900 to-indigo-950 text-white border-b border-indigo-800 space-y-3">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <div class="w-7 h-7 rounded-lg bg-indigo-500/30 border border-indigo-400/40 flex items-center justify-center text-indigo-300">
+              <i data-lucide="brain-circuit" class="w-4 h-4"></i>
+            </div>
+            <h3 class="text-sm font-bold text-indigo-100">Executive HR Daily Briefing &bull; Gemini 3 Flash</h3>
+          </div>
+          <button type="button" onclick="closeAiDailyBriefing()" class="text-slate-400 hover:text-white p-1 rounded">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+        <div id="aiDailyBriefingContent" class="text-xs sm:text-sm text-slate-200 leading-relaxed font-sans space-y-2 whitespace-pre-line">
+          Sedang menyusun analisis presensi...
+        </div>
+      </div>
+
+      <!-- History Table Responsive Container -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs sm:text-sm">
+          <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 font-semibold uppercase tracking-wider text-[11px]">
+            <tr>
+              <th scope="col" class="py-3 px-4">Waktu</th>
+              <th scope="col" class="py-3 px-4">Karyawan</th>
+              <th scope="col" class="py-3 px-4">Cabang / Shift</th>
+              <th scope="col" class="py-3 px-4">Tipe</th>
+              <th scope="col" class="py-3 px-4">Bukti & Lokasi</th>
+              <th scope="col" class="py-3 px-4">Status Cloud</th>
+            </tr>
+          </thead>
+          <tbody id="attendanceTableBody" class="divide-y divide-slate-100 text-slate-700">
+            <!-- Dynamically populated rows -->
+            <tr>
+              <td colspan="6" class="py-8 text-center text-slate-400 font-medium">
+                Belum ada rekaman presensi pada perangkat ini hari ini.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <div id="modalConfig" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-lg w-full shadow-2xl border border-slate-100 overflow-hidden transform transition-all">
+      <div class="p-5 border-b border-slate-100 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-emerald-100 text-brand-700 flex items-center justify-center">
+            <i data-lucide="sheet" class="w-4 h-4"></i>
+          </div>
+          <h3 class="text-base font-bold text-slate-900">Konfigurasi Google Apps Script</h3>
+        </div>
+        <button type="button" onclick="toggleModal('modalConfig', false)" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="p-6 space-y-4">
+        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+          Masukkan <strong>Web App URL</strong> yang didapat dari deploy Google Apps Script Spreadsheet Anda. Portal akan mengirimkan data presensi ke URL ini setiap kali karyawan melakukan check-in.
+        </p>
+
+        <div>
+          <label for="inputScriptUrl" class="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wide">
+            Web App URL (Deployment exec)
+          </label>
+          <input type="url" id="inputScriptUrl" placeholder="https://script.google.com/macros/s/AKfycbx.../exec" class="w-full px-3.5 py-2.5 text-xs sm:text-sm bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 font-mono">
+          <p class="text-[11px] text-slate-500 mt-1">
+            Pastikan deployment diatur dengan izin akses: <strong>Anyone (Siapa saja)</strong>.
+          </p>
+        </div>
+
+        <div class="flex items-center justify-between pt-2">
+          <button type="button" onclick="testSheetConnection()" id="btnTestConnection" class="px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors flex items-center gap-1.5">
+            <i data-lucide="activity" class="w-3.5 h-3.5"></i> Tes Ping Endpoint
+          </button>
+          
+          <button type="button" onclick="saveConfigUrl()" class="px-5 py-2 rounded-xl text-xs font-bold text-white bg-brand-600 hover:bg-brand-700 transition-colors">
+            Simpan Konfigurasi
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modalGuide" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] shadow-2xl border border-slate-100 flex flex-col overflow-hidden">
+      <div class="p-5 border-b border-slate-100 flex items-center justify-between bg-slate-50">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-brand-100 text-brand-700 flex items-center justify-center">
+            <i data-lucide="book-open" class="w-4 h-4"></i>
+          </div>
+          <h3 class="text-base font-bold text-slate-900">Panduan Menghubungkan Google Sheets</h3>
+        </div>
+        <button type="button" onclick="toggleModal('modalGuide', false)" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-6 text-sm text-slate-700 leading-relaxed">
+        <!-- Steps List -->
+        <div>
+          <h4 class="font-bold text-slate-900 mb-2 flex items-center gap-2">
+            <span class="w-5 h-5 rounded-full bg-brand-600 text-white flex items-center justify-center text-xs">1</span>
+            Buat Google Sheets Baru
+          </h4>
+          <p class="text-xs sm:text-sm text-slate-600">
+            Buka <a href="https://sheets.new" target="_blank" rel="noopener noreferrer" class="text-brand-600 font-semibold underline">sheets.new</a>. Beri nama file, misalnya <strong>"Data Presensi Karyawan"</strong>. Baris pertama (header) akan otomatis dibuat oleh skrip jika sheet masih kosong.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-slate-900 mb-2 flex items-center gap-2">
+            <span class="w-5 h-5 rounded-full bg-brand-600 text-white flex items-center justify-center text-xs">2</span>
+            Buka Editor Apps Script
+          </h4>
+          <p class="text-xs sm:text-sm text-slate-600">
+            Pada menu Google Sheets, klik <strong>Extensions (Ekstensi)</strong> &rarr; <strong>Apps Script</strong>.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-slate-900 mb-2 flex items-center gap-2">
+            <span class="w-5 h-5 rounded-full bg-brand-600 text-white flex items-center justify-center text-xs">3</span>
+            Salin Kode Apps Script (Code.gs)
+          </h4>
+          <p class="text-xs sm:text-sm text-slate-600 mb-3">
+            Hapus isi skrip default di editor, lalu salin seluruh kode di bawah ini:
+          </p>
+
+          <!-- Code Box with Copy Button -->
+          <div class="relative bg-slate-900 rounded-xl p-4 overflow-hidden">
+            <button type="button" onclick="copyAppsScriptCode()" id="btnCopyCode" class="absolute top-3 right-3 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-white border border-slate-700 flex items-center gap-1.5 transition-colors">
+              <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+              <span id="btnCopyText">Salin Kode</span>
+            </button>
+            <pre class="text-[11px] font-mono text-emerald-300 overflow-x-auto max-h-56 pr-24 leading-relaxed" id="scriptCodeSnippet"><code>// Google Apps Script (Code.gs) untuk Portal Presensi
+function doPost(e) {
+  var lock = LockService.getScriptLock();
+  lock.tryLock(10000);
+  
+  try {
+    var doc = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = doc.getSheetByName("Presensi") || doc.getActiveSheet();
+    
+    // Auto buat header jika sheet baru
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow([
+        "Timestamp",
+        "Nama Karyawan",
+        "NIP / ID",
+        "Cabang / Unit",
+        "Tipe Presensi",
+        "Shift",
+        "Latitude",
+        "Longitude",
+        "Google Maps URL",
+        "Catatan",
+        "Foto Selfie (Data URL / Status)"
+      ]);
+      sheet.getRange(1, 1, 1, 11).setFontWeight("bold").setBackground("#dcfce7");
+    }
+    
+    var rawData = e.postData.contents;
+    var data = JSON.parse(rawData);
+    
+    sheet.appendRow([
+      data.timestamp || new Date().toISOString(),
+      data.nama || "-",
+      data.nip || "-",
+      data.cabang || "-",
+      data.tipe || "-",
+      data.shift || "-",
+      data.latitude || "-",
+      data.longitude || "-",
+      data.mapsUrl || "-",
+      data.catatan || "-",
+      data.hasPhoto ? "Terkonfirmasi Wajah" : "Tanpa Foto"
+    ]);
+    
+    return ContentService.createTextOutput(
+      JSON.stringify({ status: "success", message: "Presensi berhasil dicatat" })
+    ).setMimeType(ContentService.MimeType.JSON);
+    
+  } catch (error) {
+    return ContentService.createTextOutput(
+      JSON.stringify({ status: "error", message: error.toString() })
+    ).setMimeType(ContentService.MimeType.JSON);
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function doGet(e) {
+  return ContentService.createTextOutput(
+    JSON.stringify({ status: "ready", message: "Apps Script Active" })
+  ).setMimeType(ContentService.MimeType.JSON);
+}</code></pre>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-slate-900 mb-2 flex items-center gap-2">
+            <span class="w-5 h-5 rounded-full bg-brand-600 text-white flex items-center justify-center text-xs">4</span>
+            Deploy sebagai Web App
+          </h4>
+          <ol class="list-decimal list-inside text-xs sm:text-sm text-slate-600 space-y-1">
+            <li>Klik tombol biru <strong>Deploy</strong> &rarr; <strong>New deployment (Penerapan baru)</strong>.</li>
+            <li>Pilih icon gerigi (Select type) &rarr; pilih <strong>Web app</strong>.</li>
+            <li>Pada <strong>Execute as</strong>: pilih <strong>Me (email Anda)</strong>.</li>
+            <li>Pada <strong>Who has access</strong>: pilih <strong>Anyone (Siapa saja)</strong> &mdash; <em>Sangat penting agar portal bisa kirim data tanpa login Google!</em></li>
+            <li>Klik <strong>Deploy</strong>, lalu berikan izin Google (Authorize Access).</li>
+            <li>Salin <strong>Web app URL</strong> yang dihasilkan (berakhiran <code class="bg-slate-100 px-1 py-0.5 rounded text-rose-600">/exec</code>), kemudian tempelkan di menu "Pengaturan Sheets" portal ini.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="p-4 border-t border-slate-100 bg-slate-50 flex justify-end">
+        <button type="button" onclick="toggleModal('modalGuide', false)" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-100 transition-colors">
+          Tutup Panduan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="modalPhotoView" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-sm w-full overflow-hidden shadow-2xl p-4 space-y-3">
+      <div class="flex items-center justify-between">
+        <h4 class="text-xs font-bold text-slate-900 uppercase">Foto Bukti Presensi</h4>
+        <button type="button" onclick="toggleModal('modalPhotoView', false)" class="text-slate-400 hover:text-slate-600">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <img id="enlargedPhotoImg" src="" alt="Bukti Foto" class="w-full aspect-square object-cover rounded-xl bg-slate-100">
+      <button type="button" onclick="toggleModal('modalPhotoView', false)" class="w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-lg">
+        Tutup
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL: Panduan Distribusi & QR Code ke Seluruh Karyawan -->
+  <div id="modalShare" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[92vh] shadow-2xl border border-slate-100 flex flex-col overflow-hidden">
+      <div class="p-5 border-b border-slate-100 flex items-center justify-between bg-gradient-to-r from-emerald-50 to-brand-50">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center shadow-md shadow-emerald-600/20">
+            <i data-lucide="users" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-slate-900">Cara Membagikan ke Seluruh Karyawan</h3>
+            <p class="text-xs text-slate-500">Agar karyawan di semua cabang outlet bisa langsung absen dari HP masing-masing</p>
+          </div>
+        </div>
+        <button type="button" onclick="toggleModal('modalShare', false)" class="text-slate-400 hover:text-slate-600 p-1.5 rounded-lg">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-6 text-xs sm:text-sm text-slate-700 leading-relaxed">
+        
+        <!-- STEP 1: Hosting Options -->
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
+          <h4 class="font-bold text-slate-900 flex items-center gap-2 text-sm">
+            <span class="w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs">1</span>
+            Unggah File index.html (Hosting Online Gratis)
+          </h4>
+          <p class="text-slate-600 text-xs">
+            Agar file ini memiliki alamat web publik (seperti <code>https://presensi-tasik.vercel.app</code>), unggah file <code>index.html</code> ini ke salah satu platform gratis berikut:
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1">
+            <a href="https://app.netlify.com/drop" target="_blank" rel="noopener" class="p-3 bg-white border border-slate-200 rounded-xl hover:border-emerald-500 hover:shadow-sm transition-all flex flex-col items-center text-center">
+              <span class="font-bold text-slate-800 text-xs">Netlify Drop (Paling Mudah)</span>
+              <span class="text-[11px] text-slate-500 mt-1">Cukup seret & lepas file index.html, langsung jadi link.</span>
+            </a>
+            <a href="https://vercel.com" target="_blank" rel="noopener" class="p-3 bg-white border border-slate-200 rounded-xl hover:border-emerald-500 hover:shadow-sm transition-all flex flex-col items-center text-center">
+              <span class="font-bold text-slate-800 text-xs">Vercel</span>
+              <span class="text-[11px] text-slate-500 mt-1">Cepat, stabil, domain gratis .vercel.app.</span>
+            </a>
+            <a href="https://pages.github.com" target="_blank" rel="noopener" class="p-3 bg-white border border-slate-200 rounded-xl hover:border-emerald-500 hover:shadow-sm transition-all flex flex-col items-center text-center">
+              <span class="font-bold text-slate-800 text-xs">GitHub Pages</span>
+              <span class="text-[11px] text-slate-500 mt-1">Gratis selamanya langsung dari repository GitHub.</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- STEP 2: QR Code & Link Sharing -->
+        <div class="bg-emerald-50/70 border border-emerald-200 rounded-xl p-4 space-y-3">
+          <h4 class="font-bold text-slate-900 flex items-center gap-2 text-sm">
+            <span class="w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs">2</span>
+            QR Code Siap Cetak untuk Ditempel di Meja Kasir / Outlet
+          </h4>
+          <p class="text-slate-600 text-xs">
+            Karyawan cukup membuka kamera HP dan memindai QR Code ini untuk langsung membuka halaman presensi:
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-center gap-4 bg-white p-4 rounded-xl border border-emerald-100">
+            <div class="bg-white p-2 border border-slate-200 rounded-xl shadow-sm">
+              <img id="dynamicQrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://example.com" alt="QR Code Presensi" class="w-32 h-32 object-contain">
+            </div>
+            <div class="flex-1 space-y-2 text-center sm:text-left">
+              <span class="text-xs font-bold text-slate-800 block">Tautan Portal Saat Ini:</span>
+              <input type="text" id="shareUrlInput" readonly value="" class="w-full text-xs font-mono bg-slate-50 border border-slate-200 px-3 py-2 rounded-lg text-slate-700">
+              <div class="flex flex-wrap gap-2 justify-center sm:justify-start">
+                <button type="button" onclick="copyShareUrl()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-colors">
+                  <i data-lucide="copy" class="w-3.5 h-3.5"></i> Salin Link WhatsApp
+                </button>
+                <button type="button" onclick="window.print()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-colors">
+                  <i data-lucide="printer" class="w-3.5 h-3.5"></i> Cetak Lembar QR
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 3: Add to Home Screen shortcut -->
+        <div class="bg-indigo-50/70 border border-indigo-200 rounded-xl p-4 space-y-2">
+          <h4 class="font-bold text-slate-900 flex items-center gap-2 text-sm">
+            <span class="w-5 h-5 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs">3</span>
+            Pasang Icon di Layar Utama HP Karyawan (Seperti Aplikasi Asli)
+          </h4>
+          <p class="text-slate-600 text-xs">
+            Karyawan tidak perlu mengetik link setiap hari. Arahkan mereka untuk menyimpan portal ke layar HP:
+          </p>
+          <ul class="list-disc list-inside text-xs text-slate-600 space-y-1 pl-1">
+            <li><strong>Di Android (Google Chrome):</strong> Buka link web &rarr; klik titik tiga di kanan atas &rarr; pilih <strong>"Tambahkan ke Layar Utama (Add to Home screen)"</strong>.</li>
+            <li><strong>Di iPhone (Safari):</strong> Buka link web &rarr; klik ikon Bagikan (*Share* di bawah) &rarr; pilih <strong>"Add to Home Screen"</strong>.</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="p-4 border-t border-slate-100 bg-slate-50 flex justify-end">
+        <button type="button" onclick="toggleModal('modalShare', false)" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-100 transition-colors">
+          Tutup Panduan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toastContainer" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none"></div>
+
+  <script>
+    // Konfigurasi Master URL Google Apps Script:
+    // Tempelkan URL Google Apps Script Anda di dalam tanda kutip di bawah ini,
+    // agar SEMUA karyawan yang membuka web otomatis terhubung tanpa harus setting manual!
+    const DEFAULT_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzfCLlxaKIEM0ZDf8Z0nhznCewJepOyiq5LmI6oAA_HXm_VP9ioYfwizlyXTq9TcZCVdQ/exec"; 
+
+    // State management
+    let currentGeo = {
+      lat: null,
+      lng: null,
+      accuracy: null,
+      ready: false
+    };
+    let capturedPhotoBase64 = null;
+    let videoStream = null;
+    let currentFacingMode = 'user'; // 'user' (front) or 'environment' (back)
+    let currentAiVerification = null;
+    const STORAGE_KEY_CONFIG = 'presensi_google_script_url';
+    const STORAGE_KEY_HISTORY = 'presensi_history_records';
+
+    async function callGemini(payload, maxRetries = 3) {
+      const apiKey = ""; // Canvas runtime injects API key automatically
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+      for (let attempt = 0; attempt < maxRetries; attempt++) {
+        try {
+          const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          if (!response.ok) {
+            throw new Error(`Gemini API Error: ${response.status}`);
+          }
+          return await response.json();
+        } catch (err) {
+          if (attempt === maxRetries - 1) throw err;
+          const delay = Math.pow(2, attempt) * 1000;
+          await new Promise(res => setTimeout(res, delay));
+        }
+      }
+    }
+
+    async function analyzeSelfieWithGemini() {
+      if (!capturedPhotoBase64) {
+        showToast('Ambil foto selfie terlebih dahulu sebelum memindai dengan AI.', 'warning');
+        return;
+      }
+
+      const btn = document.getElementById('btnTriggerAiVision');
+      const box = document.getElementById('aiVisionResultBox');
+      const headline = document.getElementById('aiVisionHeadline');
+      const feedback = document.getElementById('aiVisionFeedback');
+      const scoreBadge = document.getElementById('aiReadinessScoreBadge');
+      const motivation = document.getElementById('aiVisionMotivation');
+
+      btn.disabled = true;
+      btn.innerHTML = `<i data-lucide="loader-2" class="w-3 h-3 animate-spin"></i> Memindai...`;
+      lucide.createIcons();
+
+      try {
+        // Strip data:image/jpeg;base64, prefix
+        const base64Data = capturedPhotoBase64.split(',')[1];
+        const prompt = `Periksa foto selfie karyawan berikut untuk presensi kerja. 
+Analisis dalam format JSON murni tanpa markdown triple-backticks.
+Properti JSON:
+{
+  "isValidFace": true,
+  "readinessScore": 92,
+  "faceStatus": "Wajah Jelas & Tegak",
+  "neatness": "Penampilan rapi dan siap melayani",
+  "dailyGreeting": "Tetap semangat dan jaga fokus kerja hari ini!"
+}`;
+
+        const payload = {
+          contents: [
+            {
+              role: 'user',
+              parts: [
+                { text: prompt },
+                {
+                  inlineData: {
+                    mimeType: 'image/jpeg',
+                    data: base64Data
+                  }
+                }
+              ]
+            }
+          ],
+          generationConfig: {
+            responseMimeType: 'application/json'
+          }
+        };
+
+        const result = await callGemini(payload);
+        const textResponse = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+        
+        if (!textResponse) throw new Error('Format balasan Gemini tidak sesuai');
+        const parsed = JSON.parse(textResponse);
+
+        currentAiVerification = parsed;
+
+        headline.textContent = parsed.faceStatus || 'Terverifikasi';
+        scoreBadge.textContent = `Skor: ${parsed.readinessScore || 90}%`;
+        feedback.textContent = `${parsed.neatness || 'Penampilan prima.'} Kondisi wajah: ${parsed.isValidFace ? 'Wajar & Terbuka' : 'Perlu diperbaiki'}.`;
+        motivation.textContent = `💡 "${parsed.dailyGreeting || 'Selamat beraktivitas!'}"`;
+        
+        box.classList.remove('hidden');
+        showToast('Analisis wajah & kesiapan kerja selesai!', 'success');
+      } catch (err) {
+        console.error('Gemini Vision Error:', err);
+        showToast('Gagal memindai dengan AI. Silakan coba lagi.', 'error');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<i data-lucide="scan-face" class="w-3 h-3"></i> Pindai Lagi`;
+        lucide.createIcons();
+      }
+    }
+
+    function toggleAiNoteAssistant(forcedState) {
+      const box = document.getElementById('aiNoteBox');
+      if (typeof forcedState === 'boolean') {
+        forcedState ? box.classList.remove('hidden') : box.classList.add('hidden');
+      } else {
+        box.classList.toggle('hidden');
+      }
+      lucide.createIcons();
+    }
+
+    function setAiPromptPreset(text) {
+      document.getElementById('aiCustomPrompt').value = text;
+    }
+
+    async function generateNoteWithGemini() {
+      const input = document.getElementById('aiCustomPrompt');
+      const promptText = input.value.trim();
+      const attendanceType = document.querySelector('input[name="attendanceType"]:checked').value;
+      const division = document.getElementById('divisionSelect').value || 'Unit Terkait';
+      const btn = document.getElementById('btnGenerateAiNote');
+      const targetTextarea = document.getElementById('attendanceNotes');
+
+      if (!promptText) {
+        showToast('Tuliskan poin catatan atau pilih salah satu preset di atas.', 'warning');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = `<i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin"></i> Menyusun...`;
+      lucide.createIcons();
+
+      try {
+        const payload = {
+          contents: [
+            {
+              parts: [
+                {
+                  text: `Kamu adalah asisten HR dan operasional presensi. 
+Susun 1-2 kalimat catatan presensi yang profesional, ringkas, sopan, dan formal dalam Bahasa Indonesia untuk tipe presensi: "${attendanceType}" di cabang/unit "${division}".
+Poin atau alasan dari karyawan: "${promptText}".
+Berikan HANYA teks catatan presensi akhir tanpa pengantar, tanpa tanda kutip.`
+                }
+              ]
+            }
+          ]
+        };
+
+        const result = await callGemini(payload);
+        const generatedNote = result?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+
+        if (generatedNote) {
+          targetTextarea.value = generatedNote;
+          toggleAiNoteAssistant(false);
+          showToast('Catatan presensi berhasil dibuat oleh Gemini AI!', 'success');
+        } else {
+          showToast('Tidak ada respons teks yang dihasilkan.', 'warning');
+        }
+      } catch (err) {
+        console.error('Gemini Note Generator Error:', err);
+        showToast('Gagal membuat catatan dengan AI.', 'error');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Buat`;
+        lucide.createIcons();
+      }
+    }
+
+    async function generateHRSummaryWithGemini() {
+      const records = getStoredHistory();
+      const btn = document.getElementById('btnAiSummary');
+      const container = document.getElementById('aiDailyBriefingContainer');
+      const content = document.getElementById('aiDailyBriefingContent');
+
+      if (!records || records.length === 0) {
+        showToast('Belum ada data presensi untuk dianalisis oleh AI.', 'warning');
+        return;
+      }
+
+      container.classList.remove('hidden');
+      content.innerHTML = `<div class="flex items-center gap-2 text-indigo-300"><i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Gemini sedang menganalisis data riwayat kehadiran...</div>`;
+      lucide.createIcons();
+
+      btn.disabled = true;
+
+      try {
+        // Prepare light payload representation of records (max 25 latest)
+        const summaryData = records.slice(0, 25).map(r => ({
+          nama: r.nama,
+          cabang: r.cabang,
+          shift: r.shift,
+          tipe: r.tipe,
+          waktu: r.timestamp,
+          catatan: r.catatan,
+          skorAI: r.aiScore || null
+        }));
+
+        const payload = {
+          contents: [
+            {
+              parts: [
+                {
+                  text: `Bertindaklah sebagai Konsultan HR & Manajer Operasional Senior.
+Analisis data presensi karyawan berikut (format JSON):
+${JSON.stringify(summaryData)}
+
+Berikan Executive Briefing harian yang padat, terstruktur, dan actionable dalam Bahasa Indonesia dengan format:
+1. 📊 **Ringkasan Kehadiran & Shift**: (Total, kehadiran masuk vs permohonan izin/sakit)
+2. ⚡ **Sorotan Operasional & Outlet**: (Distribusi cabang, kepatuhan shift, izin/sakit)
+3. 🎯 **Rekomendasi Supervisor**: (1-2 langkah konkret untuk kelancaran operasional hari ini)
+
+Gunakan gaya bahasa profesional, lugas, dan positif.`
+                }
+              ]
+            }
+          ]
+        };
+
+        const result = await callGemini(payload);
+        const aiSummaryText = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+
+        if (aiSummaryText) {
+          content.textContent = aiSummaryText;
+          showToast('Ringkasan eksekutif AI berhasil disusun.', 'success');
+        } else {
+          content.textContent = 'Tidak berhasil memuat ringkasan. Coba lagi beberapa saat.';
+        }
+      } catch (err) {
+        console.error('Gemini HR Summary Error:', err);
+        content.textContent = 'Terjadi kesalahan saat memproses ringkasan AI.';
+        showToast('Gagal membuat ringkasan dengan Gemini.', 'error');
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    function closeAiDailyBriefing() {
+      document.getElementById('aiDailyBriefingContainer').classList.add('hidden');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Init Lucide Icons
+      lucide.createIcons();
+
+      // Start Real-Time Clock
+      startLiveClock();
+
+      // Check Saved Google Script URL
+      checkConfiguredUrl();
+
+      // Load History and Stats
+      renderHistoryTable();
+      updateDashboardMetrics();
+
+      // Start Webcam Stream
+      startCamera();
+
+      // Request User Geolocation
+      requestGeolocation();
+    });
+
+    function startLiveClock() {
+      const dateEl = document.getElementById('currentDateDisplay');
+      const timeEl = document.getElementById('currentTimeDisplay');
+
+      function tick() {
+        const now = new Date();
+        
+        // Indonesian Date Format
+        const optionsDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'Asia/Jakarta' };
+        dateEl.textContent = now.toLocaleDateString('id-ID', optionsDate);
+
+        // Time format HH:mm:ss
+        const optionsTime = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'Asia/Jakarta' };
+        timeEl.textContent = now.toLocaleTimeString('id-ID', optionsTime);
+      }
+      tick();
+      setInterval(tick, 1000);
+    }
+
+    async function startCamera() {
+      const video = document.getElementById('webcamVideo');
+      const placeholder = document.getElementById('cameraOffPlaceholder');
+      const guide = document.getElementById('cameraGuideOverlay');
+
+      // Stop any existing tracks
+      if (videoStream) {
+        videoStream.getTracks().forEach(track => track.stop());
+      }
+
+      try {
+        const constraints = {
+          video: {
+            facingMode: currentFacingMode,
+            width: { ideal: 640 },
+            height: { ideal: 640 }
+          },
+          audio: false
+        };
+
+        videoStream = await navigator.mediaDevices.getUserMedia(constraints);
+        video.srcObject = videoStream;
+        video.classList.remove('hidden');
+        placeholder.classList.add('hidden');
+        guide.classList.remove('hidden');
+
+        // Mirror video only for front camera
+        if (currentFacingMode === 'user') {
+          video.classList.add('video-mirror');
+        } else {
+          video.classList.remove('video-mirror');
+        }
+      } catch (err) {
+        console.warn('Camera access error:', err);
+        video.classList.add('hidden');
+        placeholder.classList.remove('hidden');
+        guide.classList.add('hidden');
+        showToast('Izin akses kamera diperlukan untuk bukti presensi.', 'warning');
+      }
+    }
+
+    function switchCameraFacing() {
+      currentFacingMode = currentFacingMode === 'user' ? 'environment' : 'user';
+      startCamera();
+    }
+
+    function takeSnapshot() {
+      const video = document.getElementById('webcamVideo');
+      const canvas = document.getElementById('photoCanvas');
+      const preview = document.getElementById('photoPreviewImg');
+      const btnCapture = document.getElementById('btnCapturePhoto');
+      const btnRetake = document.getElementById('btnRetakePhoto');
+      const statusBadge = document.getElementById('photoStatusBadge');
+      const guide = document.getElementById('cameraGuideOverlay');
+
+      if (!videoStream || video.videoWidth === 0) {
+        showToast('Kamera belum siap atau tidak tersedia.', 'error');
+        return;
+      }
+
+      // Draw to canvas
+      const width = video.videoWidth;
+      const height = video.videoHeight;
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+
+      // If mirrored, flip context
+      if (currentFacingMode === 'user') {
+        ctx.translate(width, 0);
+        ctx.scale(-1, 1);
+      }
+      ctx.drawImage(video, 0, 0, width, height);
+
+      // Compress to lightweight JPEG for cloud speed
+      capturedPhotoBase64 = canvas.toDataURL('image/jpeg', 0.65);
+
+      // Show preview
+      preview.src = capturedPhotoBase64;
+      preview.classList.remove('hidden');
+      video.classList.add('hidden');
+      guide.classList.add('hidden');
+
+      btnCapture.classList.add('hidden');
+      btnRetake.classList.remove('hidden');
+
+      statusBadge.textContent = 'Foto Siap ✓';
+      statusBadge.className = 'text-[11px] font-semibold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800';
+      
+      const aiSection = document.getElementById('aiVerificationSection');
+      if (aiSection) {
+        aiSection.classList.remove('hidden');
+        // Auto-run AI check on capture for seamless experience
+        analyzeSelfieWithGemini();
+      }
+
+      showToast('Foto selfie berhasil diambil.', 'success');
+    }
+
+    function retakeSnapshot() {
+      const video = document.getElementById('webcamVideo');
+      const preview = document.getElementById('photoPreviewImg');
+      const btnCapture = document.getElementById('btnCapturePhoto');
+      const btnRetake = document.getElementById('btnRetakePhoto');
+      const statusBadge = document.getElementById('photoStatusBadge');
+      const guide = document.getElementById('cameraGuideOverlay');
+
+      capturedPhotoBase64 = null;
+      currentAiVerification = null;
+      preview.classList.add('hidden');
+      preview.src = '';
+      video.classList.remove('hidden');
+      guide.classList.remove('hidden');
+
+      btnCapture.classList.remove('hidden');
+      btnRetake.classList.add('hidden');
+
+      statusBadge.textContent = 'Wajib Foto';
+      statusBadge.className = 'text-[11px] font-semibold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800';
+
+      const aiSection = document.getElementById('aiVerificationSection');
+      const aiResultBox = document.getElementById('aiVisionResultBox');
+      if (aiSection) aiSection.classList.add('hidden');
+      if (aiResultBox) aiResultBox.classList.add('hidden');
+    }
+
+    function requestGeolocation(notifyUser = false) {
+      const statusEl = document.getElementById('geoStatusText');
+      const coordsEl = document.getElementById('geoCoordinatesDisplay');
+      const accEl = document.getElementById('geoAccuracyDisplay');
+      const mapContainer = document.getElementById('geoMapLinkContainer');
+      const mapAnchor = document.getElementById('geoMapAnchor');
+
+      statusEl.innerHTML = `<i data-lucide="loader-2" class="w-3 h-3 animate-spin"></i> Mendeteksi Lokasi...`;
+      lucide.createIcons();
+
+      if (!navigator.geolocation) {
+        statusEl.innerHTML = `<span class="text-rose-600">Browser tidak mendukung GPS</span>`;
+        if (notifyUser) showToast('Browser tidak mendukung pendeteksi lokasi.', 'error');
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const { latitude, longitude, accuracy } = pos.coords;
+          currentGeo = {
+            lat: latitude.toFixed(6),
+            lng: longitude.toFixed(6),
+            accuracy: Math.round(accuracy),
+            ready: true
+          };
+
+          statusEl.innerHTML = `<span class="text-emerald-600 flex items-center gap-1 font-bold">✓ Lokasi Terkunci</span>`;
+          coordsEl.textContent = `${currentGeo.lat}, ${currentGeo.lng}`;
+          accEl.textContent = `± ${currentGeo.accuracy} meter`;
+
+          const gmapsUrl = `https://www.google.com/maps?q=${currentGeo.lat},${currentGeo.lng}`;
+          mapAnchor.href = gmapsUrl;
+          mapContainer.classList.remove('hidden');
+
+          if (notifyUser) showToast('Titik lokasi GPS berhasil diperbarui.', 'success');
+        },
+        (err) => {
+          console.warn('Geolocation error:', err.message);
+          currentGeo.ready = false;
+          statusEl.innerHTML = `<span class="text-rose-600 font-bold">Izin GPS Ditolak / Tidak Aktif</span>`;
+          coordsEl.textContent = 'Tidak Tersedia';
+          accEl.textContent = '-';
+          mapContainer.classList.add('hidden');
+          if (notifyUser) showToast('Aktifkan izin lokasi (GPS) pada browser Anda.', 'warning');
+        },
+        { enableHighAccuracy: true, timeout: 12000, maximumAge: 0 }
+      );
+    }
+
+    function checkConfiguredUrl() {
+      // Prioritas 1: Ambil dari localStorage jika admin pernah mengisi di browser ini
+      // Prioritas 2: Gunakan DEFAULT_SCRIPT_URL master yang tertanam di kode
+      let activeUrl = localStorage.getItem(STORAGE_KEY_CONFIG) || DEFAULT_SCRIPT_URL || '';
+      
+      const badge = document.getElementById('connectionStatusBadge');
+      const badgeText = document.getElementById('connectionStatusText');
+      const input = document.getElementById('inputScriptUrl');
+      const bannerPill = document.getElementById('bannerStatusPill');
+      
+      if (input) input.value = activeUrl;
+
+      if (activeUrl && activeUrl.startsWith('https://script.google.com')) {
+        badge.className = 'hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200';
+        badgeText.textContent = 'Sheets Terhubung';
+        if (bannerPill) {
+          bannerPill.textContent = 'Tersambung Aktif ✓';
+          bannerPill.className = 'text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full';
+        }
+      } else {
+        badge.className = 'hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-amber-50 text-amber-700 border border-amber-200';
+        badgeText.textContent = 'Mode Demo (Offline)';
+        if (bannerPill) {
+          bannerPill.textContent = 'Belum Terhubung';
+          bannerPill.className = 'text-[10px] bg-amber-100 text-amber-800 font-semibold px-2 py-0.5 rounded-full';
+        }
+      }
+    }
+
+    function getActiveScriptUrl() {
+      return localStorage.getItem(STORAGE_KEY_CONFIG) || DEFAULT_SCRIPT_URL || '';
+    }
+
+    function openShareModal() {
+      const currentUrl = window.location.href;
+      const shareInput = document.getElementById('shareUrlInput');
+      const qrImg = document.getElementById('dynamicQrImage');
+      
+      if (shareInput) shareInput.value = currentUrl;
+      if (qrImg) {
+        qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(currentUrl)}`;
+      }
+      toggleModal('modalShare', true);
+      lucide.createIcons();
+    }
+
+    function copyShareUrl() {
+      const shareInput = document.getElementById('shareUrlInput');
+      if (shareInput) {
+        shareInput.select();
+        document.execCommand('copy');
+        showToast('Link portal berhasil disalin! Silakan kirim ke grup WhatsApp karyawan.', 'success');
+      }
+    }
+
+    function saveConfigUrl() {
+      const input = document.getElementById('inputScriptUrl');
+      const url = input.value.trim();
+
+      if (url && !url.startsWith('https://script.google.com')) {
+        showToast('URL harus valid dari domain script.google.com', 'error');
+        return;
+      }
+
+      localStorage.setItem(STORAGE_KEY_CONFIG, url);
+      checkConfiguredUrl();
+      toggleModal('modalConfig', false);
+      showToast(url ? 'URL Google Apps Script berhasil disimpan!' : 'URL dikosongkan. Portal berjalan lokal.', 'success');
+    }
+
+    async function testSheetConnection() {
+      const input = document.getElementById('inputScriptUrl');
+      const url = input.value.trim();
+      const btn = document.getElementById('btnTestConnection');
+
+      if (!url) {
+        showToast('Ketikkan URL Apps Script terlebih dahulu.', 'warning');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = `<i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin"></i> Menguji...`;
+      lucide.createIcons();
+
+      try {
+        // Simple fetch test (GET)
+        const res = await fetch(url, { method: 'GET', mode: 'no-cors' });
+        showToast('Sinyal berhasil terkirim ke Google Script!', 'success');
+      } catch (err) {
+        showToast('Gagal menghubungi endpoint. Periksa koneksi atau URL.', 'error');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<i data-lucide="activity" class="w-3.5 h-3.5"></i> Tes Ping Endpoint`;
+        lucide.createIcons();
+      }
+    }
+
+    async function handleFormSubmit(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('employeeName').value.trim();
+      const nip = document.getElementById('employeeId').value.trim();
+      const cabang = document.getElementById('divisionSelect').value;
+      const shift = document.getElementById('shiftSelect').value;
+      const type = document.querySelector('input[name="attendanceType"]:checked').value;
+      const notes = document.getElementById('attendanceNotes').value.trim();
+      const submitBtn = document.getElementById('btnSubmitAttendance');
+      const submitText = document.getElementById('submitButtonText');
+
+      // Validation
+      if (!name || !nip || !cabang || !shift) {
+        showToast('Harap lengkapi semua kolom bertanda bintang.', 'error');
+        return;
+      }
+
+      if (!capturedPhotoBase64) {
+        showToast('Wajib mengambil foto selfie sebagai bukti verifikasi.', 'warning');
+        return;
+      }
+
+      // Preparation payload
+      const timestamp = new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' });
+      const isoTimestamp = new Date().toISOString();
+      const mapsUrl = currentGeo.ready ? `https://www.google.com/maps?q=${currentGeo.lat},${currentGeo.lng}` : '-';
+
+      const payload = {
+        timestamp: timestamp,
+        isoTimestamp: isoTimestamp,
+        nama: name,
+        nip: nip,
+        cabang: cabang,
+        shift: shift,
+        tipe: type,
+        catatan: notes || '-',
+        latitude: currentGeo.lat || '-',
+        longitude: currentGeo.lng || '-',
+        accuracy: currentGeo.accuracy || '-',
+        mapsUrl: mapsUrl,
+        hasPhoto: true,
+        photoData: capturedPhotoBase64, // stored locally, status sent to sheets
+        aiVerified: currentAiVerification ? true : false,
+        aiScore: currentAiVerification?.readinessScore || null,
+        aiFeedback: currentAiVerification?.neatness || null
+      };
+
+      // Set UI Loading State
+      submitBtn.disabled = true;
+      submitText.textContent = 'Mengirim Presensi...';
+
+      const scriptUrl = getActiveScriptUrl();
+      let cloudSyncSuccess = false;
+
+      if (scriptUrl) {
+        try {
+          // Send to Google Apps Script Web App
+          // Note: using no-cors or JSON text payload to handle GAS redirects
+          await fetch(scriptUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+              'Content-Type': 'text/plain;charset=utf-8',
+            },
+            body: JSON.stringify(payload)
+          });
+          cloudSyncSuccess = true;
+        } catch (err) {
+          console.error('Google Sheets Sync Failed:', err);
+          cloudSyncSuccess = false;
+        }
+      }
+
+      // Save to LocalStorage History
+      saveRecordToLocalStorage({
+        ...payload,
+        id: 'ATT-' + Date.now(),
+        syncedToCloud: cloudSyncSuccess || Boolean(scriptUrl)
+      });
+
+      // Feedback
+      if (scriptUrl) {
+        showToast(`Presensi ${type} berhasil dicatat dan disinkronkan ke Sheets!`, 'success');
+      } else {
+        showToast(`Presensi berhasil dicatat di perangkat lokal (URL Sheets belum disetel).`, 'info');
+      }
+
+      // Reset form and camera
+      document.getElementById('attendanceNotes').value = '';
+      retakeSnapshot();
+      renderHistoryTable();
+      updateDashboardMetrics();
+
+      // Reset button state
+      submitBtn.disabled = false;
+      submitText.textContent = 'Kirim Presensi Sekarang';
+    }
+
+    function getStoredHistory() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY_HISTORY);
+        return raw ? JSON.parse(raw) : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveRecordToLocalStorage(record) {
+      const history = getStoredHistory();
+      history.unshift(record);
+      // Keep maximum 100 entries to prevent storage quota issues
+      if (history.length > 100) history.pop();
+      localStorage.setItem(STORAGE_KEY_HISTORY, JSON.stringify(history));
+    }
+
+    function renderHistoryTable() {
+      const tbody = document.getElementById('attendanceTableBody');
+      const records = getStoredHistory();
+
+      if (!records || records.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" class="py-8 text-center text-slate-400 font-medium">
+              Belum ada rekaman presensi pada perangkat ini.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = records.map((item, index) => {
+        const typeBadge = item.tipe.includes('Masuk') 
+          ? '<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-emerald-100 text-emerald-800">Check-In</span>'
+          : '<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-indigo-100 text-indigo-800">Izin/Sakit</span>';
+
+        const cloudBadge = item.syncedToCloud
+          ? '<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600"><i data-lucide="cloud-check" class="w-3.5 h-3.5"></i> Terkirim</span>'
+          : '<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-400"><i data-lucide="hard-drive" class="w-3.5 h-3.5"></i> Lokal</span>';
+
+        const mapBtn = (item.latitude !== '-')
+          ? `<a href="${item.mapsUrl}" target="_blank" rel="noopener" class="text-blue-600 hover:text-blue-800 inline-flex items-center gap-1 text-xs underline" title="Buka Maps"><i data-lucide="map-pin" class="w-3 h-3"></i> GPS</a>`
+          : '<span class="text-slate-400 text-xs">No GPS</span>';
+
+        const photoBtn = item.photoData
+          ? `<button type="button" onclick="viewPhotoModal('${item.id}')" class="text-brand-600 hover:text-brand-800 inline-flex items-center gap-1 text-xs font-medium ml-2"><i data-lucide="image" class="w-3 h-3"></i> Foto</button>`
+          : '';
+
+        const aiBadge = item.aiScore 
+          ? `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-indigo-50 text-indigo-700 border border-indigo-100 ml-1.5" title="Verifikasi Gemini: ${item.aiFeedback || ''}"><i data-lucide="sparkles" class="w-2.5 h-2.5 text-indigo-500"></i> AI ${item.aiScore}%</span>`
+          : '';
+
+        return `
+          <tr class="hover:bg-slate-50 transition-colors">
+            <td class="py-3 px-4 font-mono text-xs text-slate-500 whitespace-nowrap">
+              ${item.timestamp}
+            </td>
+            <td class="py-3 px-4">
+              <div class="font-bold text-slate-900 flex items-center">${escapeHtml(item.nama)} ${aiBadge}</div>
+              <div class="text-[11px] text-slate-500 font-mono">${escapeHtml(item.nip)}</div>
+            </td>
+            <td class="py-3 px-4">
+              <div class="text-slate-800 font-medium">${escapeHtml(item.cabang)}</div>
+              <div class="text-[11px] text-slate-500">${escapeHtml(item.shift)}</div>
+            </td>
+            <td class="py-3 px-4 whitespace-nowrap">
+              ${typeBadge}
+            </td>
+            <td class="py-3 px-4 whitespace-nowrap">
+              <div class="flex items-center">
+                ${mapBtn}
+                ${photoBtn}
+              </div>
+            </td>
+            <td class="py-3 px-4 whitespace-nowrap">
+              ${cloudBadge}
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      lucide.createIcons();
+    }
+
+    function updateDashboardMetrics() {
+      const records = getStoredHistory();
+      const todayStr = new Date().toLocaleDateString('id-ID');
+
+      // Filter for today entries
+      const todayRecords = records.filter(r => {
+        return r.timestamp && r.timestamp.includes(todayStr);
+      });
+
+      const totalToday = todayRecords.length;
+      const totalCheckIn = todayRecords.filter(r => r.tipe.includes('Masuk')).length;
+      const totalPermit = todayRecords.filter(r => r.tipe.includes('Izin') || r.tipe.includes('Sakit')).length;
+
+      const elToday = document.getElementById('statTodayCount');
+      const elCheckIn = document.getElementById('statCheckInCount');
+      const elPermit = document.getElementById('statPermitCount');
+
+      if (elToday) elToday.textContent = totalToday;
+      if (elCheckIn) elCheckIn.textContent = totalCheckIn;
+      if (elPermit) elPermit.textContent = totalPermit;
+    }
+
+    function clearLocalHistory() {
+      if (confirm('Hapus seluruh riwayat presensi yang tersimpan di perangkat ini? (Data di Google Sheets tetap aman)')) {
+        localStorage.removeItem(STORAGE_KEY_HISTORY);
+        renderHistoryTable();
+        updateDashboardMetrics();
+        showToast('Riwayat lokal berhasil dibersihkan.', 'info');
+      }
+    }
+
+    function exportHistoryToCSV() {
+      const records = getStoredHistory();
+      if (!records || records.length === 0) {
+        showToast('Tidak ada data riwayat presensi untuk diunduh.', 'warning');
+        return;
+      }
+
+      const headers = ['ID', 'Waktu', 'Nama Karyawan', 'NIP', 'Cabang', 'Shift', 'Tipe Presensi', 'Latitude', 'Longitude', 'Google Maps Link', 'Catatan', 'Status Cloud'];
+      const rows = records.map(r => [
+        `"${r.id || ''}"`,
+        `"${r.timestamp || ''}"`,
+        `"${(r.nama || '').replace(/"/g, '""')}"`,
+        `"${r.nip || ''}"`,
+        `"${r.cabang || ''}"`,
+        `"${r.shift || ''}"`,
+        `"${r.tipe || ''}"`,
+        `"${r.latitude || ''}"`,
+        `"${r.longitude || ''}"`,
+        `"${r.mapsUrl || ''}"`,
+        `"${(r.catatan || '').replace(/"/g, '""')}"`,
+        `"${r.syncedToCloud ? 'Synced' : 'Local'}"`
+      ]);
+
+      const csvContent = '\uFEFF' + [headers.join(','), ...rows.map(e => e.join(','))].join('\r\n');
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', `Presensi_Karyawan_${new Date().toISOString().slice(0,10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast('File CSV berhasil diunduh.', 'success');
+    }
+
+    function toggleModal(modalId, show) {
+      const modal = document.getElementById(modalId);
+      if (show) {
+        modal.classList.remove('hidden');
+      } else {
+        modal.classList.add('hidden');
+      }
+    }
+
+    document.getElementById('btnOpenConfig').addEventListener('click', () => toggleModal('modalConfig', true));
+    document.getElementById('btnOpenGuide').addEventListener('click', () => toggleModal('modalGuide', true));
+
+    function viewPhotoModal(recordId) {
+      const records = getStoredHistory();
+      const target = records.find(r => r.id === recordId);
+      if (target && target.photoData) {
+        document.getElementById('enlargedPhotoImg').src = target.photoData;
+        toggleModal('modalPhotoView', true);
+      } else {
+        showToast('Foto tidak ditemukan.', 'warning');
+      }
+    }
+
+    function updateAttendanceTypeVisual() {
+      const selectedEl = document.querySelector('input[name="attendanceType"]:checked');
+      if (!selectedEl) return;
+      const selected = selectedEl.value;
+      const labelIn = document.getElementById('labelCheckIn');
+      const labelPermit = document.getElementById('labelPermit');
+
+      if (!labelIn || !labelPermit) return;
+
+      const activeClass = ['border-brand-500', 'bg-brand-50/40', 'text-brand-900'];
+      const inactiveClass = ['border-slate-200', 'bg-white', 'text-slate-700'];
+
+      [labelIn, labelPermit].forEach(el => {
+        el.classList.remove(...activeClass);
+        el.classList.add(...inactiveClass);
+      });
+
+      if (selected.includes('Masuk')) {
+        labelIn.classList.add(...activeClass);
+        labelIn.classList.remove(...inactiveClass);
+      } else {
+        labelPermit.classList.add('border-indigo-500', 'bg-indigo-50/40', 'text-indigo-900');
+        labelPermit.classList.remove(...inactiveClass);
+      }
+    }
+
+    function copyAppsScriptCode() {
+      const codeText = document.getElementById('scriptCodeSnippet').innerText;
+      const tempTextArea = document.createElement('textarea');
+      tempTextArea.value = codeText;
+      tempTextArea.style.position = 'fixed';
+      tempTextArea.style.left = '-9999px';
+      document.body.appendChild(tempTextArea);
+      tempTextArea.select();
+      
+      try {
+        document.execCommand('copy');
+        const btnText = document.getElementById('btnCopyText');
+        btnText.textContent = 'Tersalin!';
+        showToast('Kode Google Apps Script berhasil disalin ke clipboard!', 'success');
+        setTimeout(() => { btnText.textContent = 'Salin Kode'; }, 2500);
+      } catch (err) {
+        showToast('Gagal menyalin otomatis. Silakan blok dan salin manual.', 'error');
+      }
+      document.body.removeChild(tempTextArea);
+    }
+
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      
+      let bg = 'bg-slate-900 text-white';
+      let icon = 'info';
+
+      if (type === 'success') {
+        bg = 'bg-emerald-700 text-white';
+        icon = 'check-circle-2';
+      } else if (type === 'error') {
+        bg = 'bg-rose-700 text-white';
+        icon = 'alert-octagon';
+      } else if (type === 'warning') {
+        bg = 'bg-amber-600 text-white';
+        icon = 'alert-triangle';
+      }
+
+      toast.className = `${bg} pointer-events-auto px-4 py-3 rounded-xl shadow-lg flex items-center gap-3 text-xs sm:text-sm font-medium transition-all duration-300 transform translate-y-2 opacity-0`;
+      toast.innerHTML = `
+        <i data-lucide="${icon}" class="w-5 h-5 flex-shrink-0"></i>
+        <div class="flex-1">${message}</div>
+      `;
+
+      container.appendChild(toast);
+      lucide.createIcons();
+
+      // Trigger animation
+      requestAnimationFrame(() => {
+        toast.classList.remove('translate-y-2', 'opacity-0');
+      });
+
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 4000);
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str).replace(/[&<>"']/g, function (m) {
+        return {
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#39;'
+        }[m];
+      });
+    }
+  </script>
+</body>
+</html>
