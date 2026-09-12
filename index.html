@@ -2,35 +2,34 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>CHECK IN TASIK EXCELLENT</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Tasik Excellent</title>
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons CDN -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- Google Fonts: Inter -->
+  <!-- Google Fonts: Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Inter', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
           },
           colors: {
-            brand: {
-              50: '#f0fdf4',
-              100: '#dcfce7',
-              500: '#22c55e',
-              600: '#16a34a',
-              700: '#15803d',
-              800: '#166534',
-              900: '#14532d',
+            app: {
+              bg: '#090d16',
+              card: '#131b2e',
+              border: 'rgba(255, 255, 255, 0.08)',
+              accent: '#10b981',
+              accentLight: '#34d399',
+              darkSurface: '#0d1527'
             }
           }
         }
@@ -39,867 +38,396 @@
   </script>
 
   <style>
-    ::-webkit-scrollbar { width: 4px; height: 4px; }
-    ::-webkit-scrollbar-track { background: #f1f5f9; }
-    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+    body {
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      background-color: #050811;
+    }
     .video-mirror { transform: scaleX(-1); }
-    input, select, textarea { font-size: 16px !important; } /* Mencegah auto-zoom di iOS Safari */
-    @media (min-width: 640px) {
-      input, select, textarea { font-size: 0.875rem !important; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    @keyframes scanLine {
+      0% { top: 10%; opacity: 0.2; }
+      50% { opacity: 0.9; }
+      100% { top: 88%; opacity: 0.2; }
+    }
+    .scanner-beam {
+      animation: scanLine 2.2s ease-in-out infinite alternate;
+    }
+    .glass-dock {
+      background: rgba(13, 21, 39, 0.82);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
     }
   </style>
 </head>
-<body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex flex-col antialiased selection:bg-brand-500 selection:text-white pb-10">
+<body class="text-slate-100 font-sans min-h-screen flex justify-center antialiased">
 
-  <!-- Header Ringkas Responsif -->
-  <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
-    <div class="max-w-7xl mx-auto px-3.5 sm:px-6">
-      <div class="flex items-center justify-between h-14 sm:h-16">
-        <!-- Logo Brand -->
-        <div class="flex items-center gap-2.5">
-          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-600 to-emerald-400 flex items-center justify-center text-white shadow-md shadow-brand-500/20 shrink-0">
+  <!-- Mobile Screen Container -->
+  <div class="w-full max-w-[425px] min-h-screen bg-app-bg flex flex-col relative overflow-x-hidden border-x border-slate-800/40 shadow-[0_0_50px_rgba(0,0,0,0.8)] pb-28">
+
+    <!-- Top Status Bar & Profile Pill -->
+    <header class="sticky top-0 z-30 px-4 pt-3 pb-2.5 bg-app-bg/85 backdrop-blur-lg border-b border-app-border flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <div class="relative">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-300 p-0.5 shadow-md shadow-emerald-500/20">
             <img 
-      src="https://lh3.googleusercontent.com/d/11U_x9x0DzITs8C_kfkDeWmVeIE_bSdJE" 
-      alt="Logo Outlet" 
-      class="w-full h-full object-cover"
-     onerror="this.onerror=null; this.src='https://drive.google.com/thumbnail?id=11U_x9x0DzITs8C_kfkDeWmVeIE_bSdJE&sz=w200';"
-    />
+              src="https://lh3.googleusercontent.com/d/11U_x9x0DzITs8C_kfkDeWmVeIE_bSdJE" 
+              alt="Avatar Outlet" 
+              class="w-full h-full object-cover rounded-[14px] bg-slate-900"
+              onerror="this.onerror=null; this.src='https://drive.google.com/thumbnail?id=11U_x9x0DzITs8C_kfkDeWmVeIE_bSdJE&sz=w200';"
+            />
           </div>
-          <div>
-            <div class="flex items-center gap-1.5">
-              <h1 class="text-sm sm:text-base font-extrabold text-slate-900 tracking-tight leading-tight">TASIK EXCELLENT</h1>
-              <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800">Sheets</span>
-            </div>
-            <p class="text-[10px] text-slate-500 line-clamp-1">Portal Check in Area</p>
-          </div>
+          <span class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-emerald-500 border-2 border-app-bg rounded-full"></span>
         </div>
-
-        <!-- Tombol Aksi Kanan -->
-        <div class="flex items-center gap-1.5 sm:gap-2">
-          <div id="connectionStatusBadge" class="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-amber-50 text-amber-700 border border-amber-200">
-            <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-            <span id="connectionStatusText">URL Belum Disetel</span>
-          </div>
-
-          <button type="button" onclick="openShareModal()" class="p-2 sm:px-2.5 sm:py-1.5 text-xs font-semibold rounded-lg text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 flex items-center gap-1.5 active:scale-95 transition-all">
-            <i data-lucide="share-2" class="w-4 h-4"></i>
-            <span class="hidden md:inline">Bagikan</span>
-          </button>
-
-          <button id="btnOpenConfig" type="button" class="p-2 sm:px-2.5 sm:py-1.5 text-xs font-semibold rounded-lg text-slate-700 bg-slate-100 hover:bg-slate-200 flex items-center gap-1.5 active:scale-95 transition-all">
-            <i data-lucide="settings-2" class="w-4 h-4"></i>
-            <span class="hidden md:inline">Pengaturan</span>
-          </button>
-
-          <button id="btnOpenGuide" type="button" class="p-2 sm:px-2.5 sm:py-1.5 text-xs font-semibold rounded-lg text-brand-700 bg-brand-50 hover:bg-brand-100 border border-brand-200 flex items-center gap-1.5 active:scale-95 transition-all">
-            <i data-lucide="code-2" class="w-4 h-4"></i>
-            <span class="hidden md:inline">Script</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- Live Clock & Quick Stats Dashboard -->
-  <section class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white py-4 shadow-inner">
-    <div class="max-w-7xl mx-auto px-3.5 sm:px-6">
-      <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
         <div>
-          <p class="text-xs text-slate-300 flex items-center justify-center sm:justify-start gap-1 font-medium">
-            <i data-lucide="calendar" class="w-3.5 h-3.5 text-brand-400"></i>
-            <span id="currentDateDisplay">Memuat tanggal...</span>
+          <div class="flex items-center gap-1.5">
+            <h1 class="text-xs font-black tracking-tight text-white uppercase">TASIK EXCELLENT </h1>
+            <span class="text-[9px] px-1.5 py-0.2 bg-emerald-500/20 text-emerald-300 rounded-md font-bold">TSK</span>
+          </div>
+          <h2 class="text-xs font-black tracking-tight text-white uppercase">CHECK IN PORTAL </h2>
+          <p id="geoPillStatus" class="text-[10px] text-slate-400 flex items-center gap-1">
+            <i data-lucide="map-pin" class="w-2.5 h-2.5 text-emerald-400"></i> Memindai Geotag...
           </p>
-          <div class="flex items-baseline justify-center sm:justify-start gap-1.5 mt-0.5">
-            <h2 id="currentTimeDisplay" class="text-2xl sm:text-3xl font-extrabold tracking-tight font-mono text-emerald-400">
-              00:00:00
-            </h2>
-            <span class="text-[10px] px-1 py-0.2 rounded bg-slate-700 text-slate-200 font-bold uppercase tracking-wider">WIB</span>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-3 gap-2 w-full sm:w-auto">
-          <div class="bg-slate-800/90 border border-slate-700/80 rounded-xl p-2 text-center">
-            <span class="block text-[10px] text-slate-400 font-medium">Total Presensi</span>
-            <span id="statTodayCount" class="text-base sm:text-lg font-bold text-white leading-tight">0</span>
-          </div>
-          <div class="bg-slate-800/90 border border-slate-700/80 rounded-xl p-2 text-center">
-            <span class="block text-[10px] text-slate-400 font-medium">Masuk</span>
-            <span id="statCheckInCount" class="text-base sm:text-lg font-bold text-emerald-400 leading-tight">0</span>
-          </div>
-          <div class="bg-slate-800/90 border border-slate-700/80 rounded-xl p-2 text-center">
-            <span class="block text-[10px] text-slate-400 font-medium">Izin/Sakit/Off</span>
-            <span id="statPermitCount" class="text-base sm:text-lg font-bold text-indigo-400 leading-tight">0</span>
-          </div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- Konten Utama: Mobile First Layout -->
-  <main class="flex-1 max-w-7xl mx-auto w-full px-3.5 sm:px-6 py-4 sm:py-6">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8">
-      
-      <!-- Kolom Kamera & GPS (Prioritas urutan #1 di HP) -->
-      <div class="lg:col-span-5 space-y-4 order-1 lg:order-2">
-        
-        <!-- Kartu Selfie -->
-        <div class="bg-white rounded-2xl shadow-xs border border-slate-200/80 p-4 space-y-3">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2">
-              <div class="w-7 h-7 rounded-lg bg-emerald-100 text-brand-700 flex items-center justify-center">
-                <i data-lucide="camera" class="w-4 h-4"></i>
-              </div>
-              <h3 class="text-xs sm:text-sm font-bold text-slate-900 uppercase tracking-wide">Bukti Selfie Wajah</h3>
+      <!-- Header Tools -->
+      <div class="flex items-center gap-1.5">
+        <button type="button" onclick="openShareModal()" class="w-8 h-8 rounded-full bg-slate-800/60 border border-app-border flex items-center justify-center text-slate-300 active:scale-90 transition-all">
+          <i data-lucide="share-2" class="w-4 h-4"></i>
+        </button>
+        <button type="button" id="btnOpenConfig" class="w-8 h-8 rounded-full bg-slate-800/60 border border-app-border flex items-center justify-center text-slate-300 active:scale-90 transition-all">
+          <i data-lucide="sliders" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- TAB 1: CHECK IN VIEW -->
+    <main id="tabCheckIn" class="flex-1 px-4 pt-3 space-y-4">
+
+      <!-- Dynamic Clock Banner -->
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-600/90 via-teal-700/80 to-slate-900 p-4 border border-emerald-500/20 shadow-lg">
+        <div class="absolute -right-8 -top-8 w-28 h-28 bg-emerald-400/10 rounded-full blur-2xl pointer-events-none"></div>
+        <div class="flex items-center justify-between relative z-10">
+          <div>
+            <div class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-black/25 backdrop-blur-md text-[10px] text-emerald-200 font-semibold mb-1">
+              <span id="currentDateDisplay">Memuat...</span>
             </div>
-            <span id="photoStatusBadge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">
-              Wajib Foto
+            <div class="flex items-baseline gap-1.5">
+              <h2 id="currentTimeDisplay" class="text-3xl font-black font-mono tracking-tight text-white">00:00:00</h2>
+              <span class="text-[10px] font-bold text-emerald-200 uppercase">WIB</span>
+            </div>
+          </div>
+          <div class="flex flex-col items-end gap-1">
+            <span class="text-[10px] text-slate-300 font-medium">Shift Aktif</span>
+            <span id="badgeCurrentShift" class="px-2.5 py-1 rounded-xl bg-white/10 border border-white/15 text-[11px] font-bold text-white shadow-xs">
+              Shift Satu
             </span>
           </div>
-
-          <!-- Video Viewport Kamera -->
-          <div class="relative bg-slate-900 rounded-xl overflow-hidden aspect-[4/3] sm:aspect-square flex items-center justify-center border border-slate-300">
-            <video id="webcamVideo" autoplay playsinline muted class="w-full h-full object-cover video-mirror"></video>
-            <img id="photoPreviewImg" alt="Pratinjau Foto Presensi" class="w-full h-full object-cover hidden" />
-            <canvas id="photoCanvas" class="hidden"></canvas>
-
-            <!-- Overlay Panduan Wajah -->
-            <div id="cameraGuideOverlay" class="absolute inset-0 pointer-events-none flex flex-col items-center justify-center p-3">
-              <div class="w-28 h-36 sm:w-44 sm:h-56 rounded-full border-2 border-dashed border-emerald-400/70 flex items-center justify-center">
-                <span class="text-[10px] bg-slate-900/80 text-emerald-300 font-semibold px-2 py-0.5 rounded backdrop-blur-xs">
-                  Posisikan Wajah
-                </span>
-              </div>
-            </div>
-
-            <!-- Placeholder Kamera Mati -->
-            <div id="cameraOffPlaceholder" class="absolute inset-0 bg-slate-900 flex flex-col items-center justify-center text-slate-400 p-4 text-center hidden">
-              <i data-lucide="camera-off" class="w-8 h-8 text-slate-500 mb-2"></i>
-              <p class="text-xs">Kamera mati atau izin ditolak browser.</p>
-              <button type="button" onclick="startCamera()" class="mt-2 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-white border border-slate-700 flex items-center gap-1 active:scale-95">
-                <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Coba Aktifkan
-              </button>
-            </div>
-          </div>
-
-          <!-- Kontrol Kamera -->
-          <div class="flex items-center gap-2">
-            <button id="btnCapturePhoto" type="button" onclick="takeSnapshot()" class="flex-1 py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-black text-white text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-all">
-              <i data-lucide="aperture" class="w-4 h-4 text-emerald-400"></i>
-              <span>Ambil Foto</span>
-            </button>
-            
-            <button id="btnRetakePhoto" type="button" onclick="retakeSnapshot()" class="hidden flex-1 py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 active:scale-95 transition-all">
-              <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
-              <span>Foto Ulang</span>
-            </button>
-
-            <button id="btnSwitchCamera" type="button" onclick="switchCameraFacing()" title="Ganti Kamera" class="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 active:scale-95 transition-all">
-              <i data-lucide="refresh-ccw" class="w-4 h-4"></i>
-            </button>
-          </div>
-
-          <!-- Bagian Audit AI (Gemini) -->
-          <div id="aiVerificationSection" class="hidden pt-2.5 border-t border-slate-100 space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-bold text-slate-800 flex items-center gap-1">
-                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-indigo-600"></i> Audit Kesiapan Wajah
-              </span>
-              <button type="button" onclick="analyzeSelfieWithGemini()" id="btnTriggerAiVision" class="px-2 py-1 text-[11px] font-semibold text-indigo-700 bg-indigo-50 border border-indigo-200 rounded-lg flex items-center gap-1 active:scale-95">
-                <i data-lucide="scan-face" class="w-3 h-3"></i> Analisis AI
-              </button>
-            </div>
-
-            <div id="aiVisionResultBox" class="p-2.5 bg-indigo-50/50 rounded-xl border border-indigo-100 text-xs space-y-1.5 hidden">
-              <div class="flex items-center justify-between">
-                <span class="font-bold text-slate-900 text-[11px]" id="aiVisionHeadline">Status Terdeteksi</span>
-                <span id="aiReadinessScoreBadge" class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">Skor: 95%</span>
-              </div>
-              <p id="aiVisionFeedback" class="text-slate-600 text-[11px] leading-snug"></p>
-              <div id="aiVisionMotivation" class="text-[10px] font-medium text-indigo-700 bg-white/90 p-1.5 rounded border border-indigo-100 italic"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Kartu Geotag Lokasi GPS -->
-        <div class="bg-white rounded-2xl shadow-xs border border-slate-200/80 p-4 space-y-2.5">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2">
-              <div class="w-7 h-7 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center">
-                <i data-lucide="map-pin" class="w-4 h-4"></i>
-              </div>
-              <h3 class="text-xs sm:text-sm font-bold text-slate-900 uppercase tracking-wide">Lokasi Geotag (GPS)</h3>
-            </div>
-            <button type="button" onclick="requestGeolocation(true)" class="text-xs text-brand-600 hover:text-brand-700 font-bold flex items-center gap-1 active:scale-95">
-              <i data-lucide="locate-fixed" class="w-3.5 h-3.5"></i> Perbarui
-            </button>
-          </div>
-
-          <div class="bg-slate-50 border border-slate-200/80 rounded-xl p-3 space-y-1.5 text-xs">
-            <div class="flex items-center justify-between">
-              <span class="text-slate-500 font-medium">Status:</span>
-              <span id="geoStatusText" class="font-bold text-amber-600 flex items-center gap-1">
-                <i data-lucide="loader-2" class="w-3 h-3 animate-spin"></i> Mencari GPS...
-              </span>
-            </div>
-            <div class="flex items-center justify-between">
-              <span class="text-slate-500 font-medium">Koordinat:</span>
-              <span id="geoCoordinatesDisplay" class="font-mono font-semibold text-slate-800 text-[11px]">-</span>
-            </div>
-            <div class="flex items-center justify-between">
-              <span class="text-slate-500 font-medium">Akurasi:</span>
-              <span id="geoAccuracyDisplay" class="font-semibold text-slate-800 text-[11px]">-</span>
-            </div>
-            <div id="geoMapLinkContainer" class="pt-1 border-t border-slate-200 hidden">
-              <a id="geoMapAnchor" href="#" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 font-semibold inline-flex items-center gap-1 text-[11px]">
-                <i data-lucide="external-link" class="w-3 h-3"></i> Buka Titik di Google Maps
-              </a>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Kolom Formulir Presensi (Urutan #2 di HP) -->
-      <div class="lg:col-span-7 space-y-4 order-2 lg:order-1">
-        <div class="bg-white rounded-2xl shadow-xs border border-slate-200/80 overflow-hidden">
-          <div class="border-b border-slate-100 p-4 bg-slate-50/50 flex items-center justify-between">
-            <div>
-              <h2 class="text-sm sm:text-base font-bold text-slate-900 flex items-center gap-2">
-                <i data-lucide="user-check" class="w-4 h-4 text-brand-600"></i>
-                FORMULIR CHECK IN
-              </h2>
-              <p class="text-[11px] text-slate-500">Lengkapi data kehadiran Anda dengan benar</p>
-            </div>
-            <span class="inline-flex items-center gap-1 text-[10px] text-brand-700 bg-brand-50 font-bold px-2 py-0.5 rounded-full border border-brand-200">
-              <i data-lucide="sparkles" class="w-3 h-3"></i> Validasi Aktif
-            </span>
-          </div>
-
-          <form id="attendanceForm" class="p-4 sm:p-5 space-y-4" onsubmit="handleFormSubmit(event)">
-            
-            <!-- Nama & NIK -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-              <div>
-                <label for="employeeName" class="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wide">
-                  Nama Lengkap <span class="text-rose-500">*</span>
-                </label>
-                <div class="relative">
-                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
-                    <i data-lucide="user" class="w-4 h-4"></i>
-                  </div>
-                  <input type="text" id="employeeName" required placeholder="Contoh: RENDI AKBAR" class="w-full pl-9 pr-3 py-2 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 font-medium">
-                </div>
-              </div>
-
-              <div>
-                <label for="employeeId" class="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wide">
-                  NIK / ID Karyawan <span class="text-rose-500">*</span>
-                </label>
-                <div class="relative">
-                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
-                    <i data-lucide="badge-percent" class="w-4 h-4"></i>
-                  </div>
-                  <input type="text" id="employeeId" required placeholder="Contoh: FI3459128" class="w-full pl-9 pr-3 py-2 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 font-medium">
-                </div>
-              </div>
-            </div>
-
-            <!-- Outlet Resto & Shift -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-              <div>
-                <label for="divisionSelect" class="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wide">
-                  Outlet Resto <span class="text-rose-500">*</span>
-                </label>
-                <div class="relative">
-                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
-                    <i data-lucide="building-2" class="w-4 h-4"></i>
-                  </div>
-                  <select id="divisionSelect" required class="w-full pl-9 pr-8 py-2 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 font-medium appearance-none">
-                    <option value="" disabled selected>PILIH RESTO</option>
-                    <option value="LAZATTO MANGKUBUMI">LAZATTO MANGKUBUMI</option>
-                    <option value="LAZATTO KERKOF">LAZATTO KERKOF</option>
-                    <option value="LAZATTO RAJAPOLAH">LAZATTO RAJAPOLAH</option>
-                    <option value="LAZATTO RAJAPOLAH SATELIT">LAZATTO RAJAPOLAH SATELIT</option>
-                    <option value="LAZATTO CIAWI TASIK">LAZATTO CIAWI TSK</option>
-                    <option value="NGEUMI MANGKUBUMI">NGEUMI MANGKUBUMI</option>
-                    <option value="NGEUMI INDIHIANG">NGEUMI INDIHIANG</option>
-                    <option value="NGEUMI CIGEUREUNG">NGEUMI CIGEUREUNG</option>
-                  </select>
-                  <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-slate-400">
-                    <i data-lucide="chevron-down" class="w-4 h-4"></i>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <label for="shiftSelect" class="block text-xs font-bold text-slate-700 mb-1 uppercase tracking-wide">
-                  Shift Kerja <span class="text-rose-500">*</span>
-                </label>
-                <div class="relative">
-                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
-                    <i data-lucide="clock" class="w-4 h-4"></i>
-                  </div>
-                  <select id="shiftSelect" required class="w-full pl-9 pr-8 py-2 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 font-medium appearance-none">
-                    <option value="Shift Satu">Shift Satu</option>
-                    <option value="Shift Dua">Shift Dua</option>
-                    <option value="Shift Tiga">Shift Tiga</option>
-                    <option value="Middle">Middle</option>
-                    <option value="OFF">OFF</option>
-                    <option value="Cuti">Cuti</option>
-                  </select>
-                  <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-slate-400">
-                    <i data-lucide="chevron-down" class="w-4 h-4"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Pengaturan Tanggal & Waktu Check-In -->
-            <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/90 space-y-2.5">
-              <div class="flex items-center justify-between">
-                <label class="text-xs font-bold uppercase tracking-wide text-slate-700 flex items-center gap-1">
-                  <i data-lucide="calendar-clock" class="w-3.5 h-3.5 text-emerald-600"></i>
-                  Waktu Check-In
-                </label>
-
-                <button type="button" onclick="setWaktuOtomatis()" class="inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-100 hover:bg-emerald-200 text-emerald-800 text-[11px] font-bold rounded-lg active:scale-95 transition-all">
-                  <i data-lucide="refresh-cw" class="w-3 h-3"></i>
-                  Waktu Sekarang
-                </button>
-              </div>
-
-              <div class="grid grid-cols-2 gap-2.5">
-                <div>
-                  <span class="text-[10px] text-slate-500 font-medium mb-1 block">Tanggal</span>
-                  <input type="date" id="inputTanggal" required class="w-full px-2.5 py-1.5 text-xs bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 font-medium text-slate-800 shadow-2xs">
-                </div>
-                <div>
-                  <span class="text-[10px] text-slate-500 font-medium mb-1 block">Jam (WIB)</span>
-                  <input type="time" step="1" id="inputJam" required class="w-full px-2.5 py-1.5 text-xs bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 font-medium text-slate-800 shadow-2xs">
-                </div>
-              </div>
-            </div>
-
-            <!-- Opsi Tipe Presensi (Grid 3 Kolom Responsif) -->
-            <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wide">
-                Tipe Presensi <span class="text-rose-500">*</span>
-              </label>
-              <div class="grid grid-cols-3 gap-2">
-                <!-- Check-in -->
-                <label class="cursor-pointer relative flex flex-col items-center justify-center p-2.5 rounded-xl border-2 border-brand-500 bg-brand-50/50 text-brand-900 transition-all text-center" id="labelCheckIn">
-                  <input type="radio" name="attendanceType" value="Check-In (Masuk)" checked class="sr-only" onchange="updateAttendanceTypeVisual()">
-                  <i data-lucide="log-in" class="w-4 h-4 text-brand-600 mb-0.5"></i>
-                  <span class="text-xs font-bold leading-tight">Masuk</span>
-                  <span class="text-[9px] text-slate-500">Mulai Kerja</span>
-                </label>
-
-                <!-- OFF / LIBUR -->
-                <label class="cursor-pointer relative flex flex-col items-center justify-center p-2.5 rounded-xl border-2 border-slate-200 bg-white text-slate-700 transition-all text-center" id="labelOff">
-                  <input type="radio" name="attendanceType" value="OFF / Libur" class="sr-only" onchange="updateAttendanceTypeVisual()">
-                  <i data-lucide="coffee" class="w-4 h-4 text-amber-500 mb-0.5"></i>
-                  <span class="text-xs font-bold leading-tight">OFF</span>
-                  <span class="text-[9px] text-slate-500">Libur / Cuti</span>
-                </label>
-
-                <!-- Izin / Sakit -->
-                <label class="cursor-pointer relative flex flex-col items-center justify-center p-2.5 rounded-xl border-2 border-slate-200 bg-white text-slate-700 transition-all text-center" id="labelPermit">
-                  <input type="radio" name="attendanceType" value="Izin / Sakit" class="sr-only" onchange="updateAttendanceTypeVisual()">
-                  <i data-lucide="file-text" class="w-4 h-4 text-indigo-500 mb-0.5"></i>
-                  <span class="text-xs font-bold leading-tight">Izin / Sakit</span>
-                  <span class="text-[9px] text-slate-500">Keterangan</span>
-                </label>
-              </div>
-            </div>
-
-            <!-- Catatan & Asisten Gemini AI -->
-            <div>
-              <div class="flex items-center justify-between mb-1">
-                <label for="attendanceNotes" class="block text-xs font-bold text-slate-700 uppercase tracking-wide">
-                  Catatan Tambahan
-                </label>
-                <button type="button" onclick="toggleAiNoteAssistant()" class="inline-flex items-center gap-1 text-[11px] font-bold text-indigo-600 hover:text-indigo-800 bg-indigo-50 px-2 py-0.5 rounded-md border border-indigo-200">
-                  <i data-lucide="sparkles" class="w-3 h-3 text-indigo-600"></i>
-                  <span>Bantu Tulis AI</span>
-                </button>
-              </div>
-
-              <!-- Dialog Pembantu Tulis AI -->
-              <div id="aiNoteBox" class="hidden mb-2 p-3 bg-indigo-50/70 rounded-xl border border-indigo-200 space-y-2">
-                <div class="flex items-center justify-between">
-                  <span class="text-xs font-bold text-indigo-900 flex items-center gap-1">
-                    <i data-lucide="bot" class="w-3.5 h-3.5 text-indigo-600"></i> Asisten Format Catatan
-                  </span>
-                  <button type="button" onclick="toggleAiNoteAssistant(false)" class="text-indigo-400 hover:text-indigo-600">
-                    <i data-lucide="x" class="w-3.5 h-3.5"></i>
-                  </button>
-                </div>
-                <div class="flex flex-wrap gap-1">
-                  <button type="button" onclick="setAiPromptPreset('Siap fokus operasional dan pelayanan cepat prima')" class="px-2 py-0.5 rounded text-[10px] bg-white border border-indigo-200 text-indigo-700 font-medium">
-                    + Standar Shift
-                  </button>
-                  <button type="button" onclick="setAiPromptPreset('Izin sakit demam flu, beristirahat 1 hari')" class="px-2 py-0.5 rounded text-[10px] bg-white border border-indigo-200 text-indigo-700 font-medium">
-                    + Izin Sakit
-                  </button>
-                  <button type="button" onclick="setAiPromptPreset('Izin terlambat 15 menit kendala jalan raya')" class="px-2 py-0.5 rounded text-[10px] bg-white border border-indigo-200 text-indigo-700 font-medium">
-                    + Terlambat
-                  </button>
-                </div>
-                <div class="flex gap-1.5">
-                  <input type="text" id="aiCustomPrompt" placeholder="Ketik inti alasan..." class="flex-1 px-2.5 py-1 text-xs bg-white border border-indigo-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                  <button type="button" onclick="generateNoteWithGemini()" id="btnGenerateAiNote" class="px-3 py-1 bg-indigo-600 text-white rounded-lg text-xs font-bold flex items-center gap-1 shrink-0">
-                    <i data-lucide="sparkles" class="w-3 h-3"></i> Tulis
-                  </button>
-                </div>
-              </div>
-
-              <textarea id="attendanceNotes" rows="2" placeholder="Catatan tugas outlet atau keterangan izin..." class="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 resize-none font-medium"></textarea>
-            </div>
-
-            <!-- Tombol Kirim -->
-            <div class="pt-1">
-              <button id="btnSubmitAttendance" type="submit" class="w-full py-3.5 px-4 rounded-xl bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white font-extrabold text-sm shadow-md shadow-brand-600/30 flex items-center justify-center gap-2 active:scale-98 transition-all">
-                <i data-lucide="send" class="w-4 h-4"></i>
-                <span id="submitButtonText">Kirim Presensi Sekarang</span>
-              </button>
-              <p class="text-center text-[10px] text-slate-400 mt-1.5">
-                Data diverifikasi otomatis dengan foto selfie & geotag koordinat GPS.
-              </p>
-            </div>
-          </form>
         </div>
       </div>
 
-    </div>
+      <!-- Modern Camera Viewport (Stories Ratio) -->
+      <div class="relative rounded-3xl overflow-hidden bg-slate-950 border border-app-border shadow-xl aspect-[4/3] flex items-center justify-center">
+        <video id="webcamVideo" autoplay playsinline muted class="w-full h-full object-cover video-mirror"></video>
+        <img id="photoPreviewImg" alt="Preview Selfie" class="w-full h-full object-cover hidden" />
+        <canvas id="photoCanvas" class="hidden"></canvas>
 
-    <!-- Riwayat Presensi Lokal & Cloud -->
-    <div class="mt-6 bg-white rounded-2xl shadow-xs border border-slate-200/80 overflow-hidden">
-      <div class="p-4 border-b border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5">
-        <div>
-          <h2 class="text-sm sm:text-base font-bold text-slate-900 flex items-center gap-1.5">
-            <i data-lucide="history" class="w-4 h-4 text-indigo-600"></i>
-            Riwayat Presensi Perangkat Ini
-          </h2>
-          <p class="text-[11px] text-slate-500">Tersimpan di memori browser dan tersinkronisasi ke Google Sheets</p>
+        <!-- Face Mesh / Scanning Laser HUD -->
+        <div id="cameraGuideOverlay" class="absolute inset-0 pointer-events-none flex flex-col items-center justify-center">
+          <div class="w-36 h-48 rounded-3xl border-2 border-emerald-400/50 relative flex items-center justify-center">
+            <span class="scanner-beam absolute w-full h-0.5 bg-gradient-to-r from-transparent via-emerald-400 to-transparent shadow-[0_0_12px_#34d399]"></span>
+            <div class="absolute top-2 text-[9px] font-bold text-emerald-300/80 bg-black/40 px-2 py-0.5 rounded-full backdrop-blur-xs">
+              POSISIKAN WAJAH
+            </div>
+          </div>
         </div>
 
-        <div class="flex items-center gap-1.5 w-full sm:w-auto">
-          <button type="button" onclick="generateHRSummaryWithGemini()" id="btnAiSummary" class="flex-1 sm:flex-none inline-flex items-center justify-center gap-1 px-2.5 py-1.5 text-xs font-semibold text-indigo-700 bg-indigo-50 border border-indigo-200 rounded-lg active:scale-95">
-            <i data-lucide="sparkles" class="w-3 h-3 text-indigo-600"></i> Analisis AI
-          </button>
-          <button type="button" onclick="exportHistoryToCSV()" class="flex-1 sm:flex-none inline-flex items-center justify-center gap-1 px-2.5 py-1.5 text-xs font-semibold text-slate-700 bg-slate-100 rounded-lg active:scale-95">
-            <i data-lucide="download" class="w-3 h-3"></i> CSV
-          </button>
-          <button type="button" onclick="clearLocalHistory()" class="p-1.5 text-rose-600 hover:bg-rose-50 rounded-lg active:scale-95" title="Hapus Riwayat">
-            <i data-lucide="trash-2" class="w-4 h-4"></i>
+        <!-- Camera Off State -->
+        <div id="cameraOffPlaceholder" class="absolute inset-0 bg-slate-950 flex flex-col items-center justify-center text-slate-500 p-4 text-center hidden">
+          <i data-lucide="video-off" class="w-8 h-8 text-slate-600 mb-2"></i>
+          <p class="text-xs">Izin kamera dinonaktifkan</p>
+          <button type="button" onclick="startCamera()" class="mt-2.5 px-3 py-1.5 rounded-full bg-slate-800 text-slate-200 text-xs font-semibold">
+            Nyalakan
           </button>
         </div>
-      </div>
 
-      <!-- Kotak Analisis AI Briefing -->
-      <div id="aiDailyBriefingContainer" class="hidden p-4 bg-slate-900 text-white border-b border-indigo-950 space-y-2">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <i data-lucide="brain-circuit" class="w-4 h-4 text-indigo-400"></i>
-            <h3 class="text-xs font-bold text-indigo-200">Executive Briefing &bull; Gemini Flash</h3>
-          </div>
-          <button type="button" onclick="closeAiDailyBriefing()" class="text-slate-400 hover:text-white">
-            <i data-lucide="x" class="w-4 h-4"></i>
+        <!-- Floating Camera Shutter & Actions Inside Viewport -->
+        <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-auto">
+          <button type="button" onclick="switchCameraFacing()" class="w-10 h-10 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-white flex items-center justify-center active:scale-90 transition-all">
+            <i data-lucide="refresh-cw" class="w-4 h-4"></i>
           </button>
-        </div>
-        <div id="aiDailyBriefingContent" class="text-xs text-slate-200 leading-relaxed font-sans space-y-1.5 whitespace-pre-line">
-          Sedang menyusun analisis presensi...
+
+          <button id="btnCapturePhoto" type="button" onclick="takeSnapshot()" class="w-14 h-14 rounded-full border-4 border-white/30 bg-emerald-500 hover:bg-emerald-400 text-white flex items-center justify-center shadow-lg active:scale-95 transition-all">
+            <div class="w-10 h-10 rounded-full bg-white/20 border-2 border-white flex items-center justify-center">
+              <i data-lucide="camera" class="w-5 h-5 text-white"></i>
+            </div>
+          </button>
+
+          <button id="btnRetakePhoto" type="button" onclick="retakeSnapshot()" class="hidden px-3 py-2 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-white text-xs font-bold flex items-center gap-1.5 active:scale-95 transition-all">
+            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Ulang
+          </button>
+
+          <div class="w-10 h-10 flex items-center justify-center">
+            <span id="photoStatusDot" class="w-3 h-3 rounded-full bg-amber-400 ring-4 ring-amber-400/20 animate-ping"></span>
+          </div>
         </div>
       </div>
 
-      <!-- Tampilan HP (Card List) -->
-      <div id="mobileHistoryList" class="sm:hidden divide-y divide-slate-100 p-2 space-y-2">
-        <!-- Terisi dinamis -->
-      </div>
+      <!-- Modern Card Form -->
+      <form id="attendanceForm" onsubmit="handleFormSubmit(event)" class="space-y-3.5">
 
-      <!-- Tampilan Desktop & Tablet (Tabel Lengkap) -->
-      <div class="hidden sm:block overflow-x-auto">
-        <table class="w-full text-left text-xs sm:text-sm">
-          <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 font-semibold uppercase tracking-wider text-[11px]">
-            <tr>
-              <th scope="col" class="py-2.5 px-3.5">Waktu</th>
-              <th scope="col" class="py-2.5 px-3.5">Karyawan</th>
-              <th scope="col" class="py-2.5 px-3.5">Outlet & Shift</th>
-              <th scope="col" class="py-2.5 px-3.5">Tipe</th>
-              <th scope="col" class="py-2.5 px-3.5">Bukti & Lokasi</th>
-              <th scope="col" class="py-2.5 px-3.5">Cloud</th>
-            </tr>
-          </thead>
-          <tbody id="attendanceTableBody" class="divide-y divide-slate-100 text-slate-700">
-            <!-- Terisi dinamis -->
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </main>
+        <!-- Attendance Category Chips -->
+        <div class="grid grid-cols-3 gap-2">
+          <label id="pillCheckIn" class="cursor-pointer py-2.5 px-2 rounded-2xl bg-emerald-500/15 border border-emerald-500/40 text-center transition-all">
+            <input type="radio" name="attendanceType" value="Check-In (Masuk)" checked class="sr-only" onchange="updateAttendanceVisual()">
+            <div class="flex items-center justify-center gap-1 text-emerald-400 mb-0.5">
+              <i data-lucide="log-in" class="w-3.5 h-3.5"></i>
+            </div>
+            <span class="text-xs font-black text-emerald-300 tracking-tight">Masuk</span>
+          </label>
 
-  <!-- Modal Konfigurasi URL Google Apps Script -->
-  <div id="modalConfig" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-3.5 hidden">
-    <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-slate-100 overflow-hidden">
-      <div class="p-4 border-b border-slate-100 flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <i data-lucide="sheet" class="w-4 h-4 text-brand-600"></i>
-          <h3 class="text-sm font-bold text-slate-900">Konfigurasi Google Apps Script</h3>
+          <label id="pillOff" class="cursor-pointer py-2.5 px-2 rounded-2xl bg-slate-900 border border-app-border text-center transition-all opacity-60">
+            <input type="radio" name="attendanceType" value="OFF / Libur" class="sr-only" onchange="updateAttendanceVisual()">
+            <div class="flex items-center justify-center gap-1 text-slate-300 mb-0.5">
+              <i data-lucide="coffee" class="w-3.5 h-3.5"></i>
+            </div>
+            <span class="text-xs font-black text-slate-300 tracking-tight">OFF</span>
+          </label>
+
+          <label id="pillPermit" class="cursor-pointer py-2.5 px-2 rounded-2xl bg-slate-900 border border-app-border text-center transition-all opacity-60">
+            <input type="radio" name="attendanceType" value="Izin / Sakit" class="sr-only" onchange="updateAttendanceVisual()">
+            <div class="flex items-center justify-center gap-1 text-slate-300 mb-0.5">
+              <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+            </div>
+            <span class="text-xs font-black text-slate-300 tracking-tight">Izin/Sakit</span>
+          </label>
         </div>
-        <button type="button" onclick="toggleModal('modalConfig', false)" class="text-slate-400 p-1">
-          <i data-lucide="x" class="w-4 h-4"></i>
+
+        <!-- Inset Field: Nama & NIK -->
+        <div class="bg-app-card rounded-2xl p-3 border border-app-border space-y-2.5">
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1">Nama Lengkap</span>
+            <div class="relative">
+              <i data-lucide="user" class="w-4 h-4 text-slate-500 absolute left-3 top-3"></i>
+              <input type="text" id="employeeName" required placeholder="Contoh: RENDI AKBAR" class="w-full bg-slate-950/70 border border-slate-800 rounded-xl pl-9 pr-3 py-2.5 text-xs font-semibold text-white focus:outline-none focus:border-emerald-500 transition-all placeholder:text-slate-600">
+            </div>
+          </div>
+
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1">NIK / ID Karyawan</span>
+            <div class="relative">
+              <i data-lucide="hash" class="w-4 h-4 text-slate-500 absolute left-3 top-3"></i>
+              <input type="text" id="employeeId" required placeholder="Contoh: FI3459128" class="w-full bg-slate-950/70 border border-slate-800 rounded-xl pl-9 pr-3 py-2.5 text-xs font-semibold text-white focus:outline-none focus:border-emerald-500 transition-all placeholder:text-slate-600">
+            </div>
+          </div>
+        </div>
+
+        <!-- Inset Field: Outlet & Shift Picker -->
+        <div class="bg-app-card rounded-2xl p-3 border border-app-border grid grid-cols-2 gap-2">
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1">Resto</span>
+            <select id="divisionSelect" required class="w-full bg-slate-950/70 border border-slate-800 rounded-xl px-2.5 py-2.5 text-xs font-semibold text-white focus:outline-none focus:border-emerald-500">
+              <option value="" disabled selected>Pilih Outlet</option>
+              <option value="LAZATTO MANGKUBUMI">LAZATTO MANGKUBUMI</option>
+              <option value="LAZATTO KERKOF">LAZATTO KERKOF</option>
+              <option value="LAZATTO RAJAPOLAH">LAZATTO RAJAPOLAH</option>
+              <option value="LAZATTO RAJAPOLAH SATELIT">LAZATTO RAJAPOLAH SATELIT</option>
+              <option value="LAZATTO CIAWI TASIK">LAZATTO CIAWI TSK</option>
+              <option value="NGEUMI MANGKUBUMI">NGEUMI MANGKUBUMI</option>
+              <option value="NGEUMI INDIHIANG">NGEUMI INDIHIANG</option>
+              <option value="NGEUMI CIGEUREUNG">NGEUMI CIGEUREUNG</option>
+            </select>
+          </div>
+
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1">Shift</span>
+            <select id="shiftSelect" onchange="document.getElementById('badgeCurrentShift').textContent = this.value" required class="w-full bg-slate-950/70 border border-slate-800 rounded-xl px-2.5 py-2.5 text-xs font-semibold text-white focus:outline-none focus:border-emerald-500">
+              <option value="Shift Satu">Shift Satu</option>
+              <option value="Shift Dua">Shift Dua</option>
+              <option value="Shift Tiga">Shift Tiga</option>
+              <option value="Middle">Middle</option>
+              <option value="OFF">OFF</option>
+              <option value="Cuti">Cuti</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Hidden Time Trackers -->
+        <input type="hidden" id="inputTanggal">
+        <input type="hidden" id="inputJam">
+
+        <!-- Inset Field: Catatan -->
+        <div class="bg-app-card rounded-2xl p-3 border border-app-border">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1">Catatan Operasional</span>
+          <textarea id="attendanceNotes" rows="2" placeholder="Tuliskan catatan kerja / keterangan izin..." class="w-full bg-slate-950/70 border border-slate-800 rounded-xl p-2.5 text-xs font-medium text-white focus:outline-none focus:border-emerald-500 placeholder:text-slate-600 resize-none"></textarea>
+        </div>
+
+        <!-- Action Button Submit -->
+        <button id="btnSubmitAttendance" type="submit" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 active:scale-98 text-slate-950 font-black text-xs uppercase tracking-wider shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2 transition-all">
+          <i data-lucide="send" class="w-4 h-4"></i>
+          <span id="submitButtonText">Verifikasi & Check-In Sekarang</span>
         </button>
-      </div>
-      <div class="p-4 space-y-3 text-xs">
-        <p class="text-slate-600">
-          Masukkan <strong>Web App URL</strong> hasil penerapan Google Apps Script.
-        </p>
-        <div>
-          <label for="inputScriptUrl" class="block font-bold text-slate-700 mb-1 uppercase">Web App URL (/exec)</label>
-          <input type="url" id="inputScriptUrl" placeholder="https://script.google.com/macros/s/.../exec" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl font-mono text-xs">
-        </div>
-        <div class="flex items-center justify-between pt-2">
-          <button type="button" onclick="testSheetConnection()" id="btnTestConnection" class="px-3 py-1.5 rounded-lg font-semibold text-slate-700 bg-slate-100 flex items-center gap-1">
-            <i data-lucide="activity" class="w-3.5 h-3.5"></i> Tes Ping
-          </button>
-          <button type="button" onclick="saveConfigUrl()" class="px-4 py-1.5 rounded-lg font-bold text-white bg-brand-600">
-            Simpan
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+      </form>
+    </main>
 
-  <!-- Modal Panduan Script -->
-  <div id="modalGuide" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-3.5 hidden">
-    <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[85vh] shadow-2xl border border-slate-100 flex flex-col overflow-hidden">
-      <div class="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
-        <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
-          <i data-lucide="book-open" class="w-4 h-4 text-brand-600"></i> Panduan Script Google Sheets
-        </h3>
-        <button type="button" onclick="toggleModal('modalGuide', false)" class="text-slate-400 p-1">
-          <i data-lucide="x" class="w-4 h-4"></i>
-        </button>
-      </div>
-      <div class="p-4 overflow-y-auto space-y-4 text-xs text-slate-700 leading-relaxed">
-        <div>
-          <h4 class="font-bold text-slate-900 mb-1">1. Salin Kode Google Apps Script</h4>
-          <div class="relative bg-slate-900 rounded-xl p-3">
-            <button type="button" onclick="copyAppsScriptCode()" class="absolute top-2 right-2 px-2.5 py-1 rounded bg-slate-800 text-[11px] text-white flex items-center gap-1 font-semibold">
-              <i data-lucide="copy" class="w-3 h-3"></i> <span id="btnCopyText">Salin</span>
-            </button>
-            <pre class="text-[11px] font-mono text-emerald-300 overflow-x-auto max-h-48 pr-16" id="scriptCodeSnippet"><code>function doPost(e) {
-  var lock = LockService.getScriptLock();
-  lock.tryLock(10000);
-  try {
-    var doc = SpreadsheetApp.getActiveSpreadsheet();
-    var sheet = doc.getSheetByName("Presensi") || doc.getActiveSheet();
-    if (sheet.getLastRow() === 0) {
-      sheet.appendRow(["Timestamp", "Tanggal Form", "Jam Form", "Nama Karyawan", "NIP / ID", "Outlet Resto", "Tipe Presensi", "Shift", "Latitude", "Longitude", "Google Maps URL", "Catatan", "Foto Selfie Status"]);
-      sheet.getRange(1, 1, 1, 13).setFontWeight("bold").setBackground("#dcfce7");
-    }
-    var data = JSON.parse(e.postData.contents);
-    sheet.appendRow([
-      data.timestamp || new Date().toISOString(),
-      data.tanggalForm || "-",
-      data.jamForm || "-",
-      data.nama || "-",
-      data.nip || "-",
-      data.cabang || "-",
-      data.tipe || "-",
-      data.shift || "-",
-      data.latitude || "-",
-      data.longitude || "-",
-      data.mapsUrl || "-",
-      data.catatan || "-",
-      data.hasPhoto ? "Terkonfirmasi Wajah" : "Tanpa Foto"
-    ]);
-    return ContentService.createTextOutput(JSON.stringify({ status: "success" })).setMimeType(ContentService.MimeType.JSON);
-  } catch (err) {
-    return ContentService.createTextOutput(JSON.stringify({ status: "error", message: err.toString() })).setMimeType(ContentService.MimeType.JSON);
-  } finally {
-    lock.releaseLock();
-  }
-}
-function doGet() {
-  return ContentService.createTextOutput(JSON.stringify({ status: "ready" })).setMimeType(ContentService.MimeType.JSON);
-}</code></pre>
-          </div>
-        </div>
-        <div>
-          <h4 class="font-bold text-slate-900 mb-1">2. Penerapan Web App</h4>
-          <p>Pada Apps Script, klik <strong>Deploy &rarr; New deployment &rarr; Web app</strong>. Atur <em>Execute as: Me</em> dan <em>Who has access: Anyone</em>.</p>
-        </div>
-      </div>
-      <div class="p-3 border-t border-slate-100 bg-slate-50 flex justify-end">
-        <button type="button" onclick="toggleModal('modalGuide', false)" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white border border-slate-200">Tutup</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal Preview Foto -->
-  <div id="modalPhotoView" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-xs flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-2xl max-w-xs w-full p-4 space-y-3 text-center">
+    <!-- TAB 2: ACTIVITY & HISTORY -->
+    <section id="tabHistory" class="flex-1 px-4 pt-3 space-y-3.5 hidden">
       <div class="flex items-center justify-between">
-        <h4 class="text-xs font-bold text-slate-900 uppercase">Bukti Selfie</h4>
-        <button type="button" onclick="toggleModal('modalPhotoView', false)" class="text-slate-400">
-          <i data-lucide="x" class="w-4 h-4"></i>
-        </button>
+        <div>
+          <h2 class="text-sm font-black text-white">Log Aktivitas</h2>
+          <p class="text-[10px] text-slate-400">Riwayat presensi tersimpan lokal</p>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <button type="button" onclick="exportHistoryToCSV()" class="p-2 rounded-xl bg-slate-900 border border-app-border text-slate-300 hover:text-white">
+            <i data-lucide="download" class="w-3.5 h-3.5"></i>
+          </button>
+          <button type="button" onclick="clearLocalHistory()" class="p-2 rounded-xl bg-slate-900 border border-app-border text-rose-400 hover:text-rose-300">
+            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
       </div>
-      <img id="enlargedPhotoImg" src="" alt="Bukti Foto" class="w-full aspect-square object-cover rounded-xl bg-slate-100">
-      <button type="button" onclick="toggleModal('modalPhotoView', false)" class="w-full py-2 bg-slate-100 text-slate-700 text-xs font-bold rounded-lg">Tutup</button>
-    </div>
+
+      <div id="mobileHistoryList" class="space-y-2.5">
+        <!-- Generated Cards -->
+      </div>
+    </section>
+
+    <!-- FLOATING GLASS DOCK (BOTTOM APP BAR) -->
+    <nav class="fixed bottom-3 max-w-[395px] w-[calc(100%-2rem)] glass-dock border border-white/10 rounded-full px-6 py-2.5 flex items-center justify-around z-40 shadow-2xl mx-auto left-0 right-0">
+      <button type="button" onclick="switchTab('checkin')" id="navBtnCheckIn" class="flex flex-col items-center gap-1 text-emerald-400">
+        <i data-lucide="fingerprint" class="w-5 h-5"></i>
+        <span class="text-[10px] font-bold">Check-In</span>
+      </button>
+
+      <div class="w-px h-6 bg-white/10"></div>
+
+      <button type="button" onclick="switchTab('history')" id="navBtnHistory" class="flex flex-col items-center gap-1 text-slate-400 hover:text-white">
+        <i data-lucide="clock-3" class="w-5 h-5"></i>
+        <span class="text-[10px] font-medium">Riwayat</span>
+      </button>
+    </nav>
+
   </div>
 
-  <!-- Modal Share URL -->
-  <div id="modalShare" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-3.5 hidden">
-    <div class="bg-white rounded-2xl max-w-sm w-full p-4 space-y-3 text-center">
+  <!-- Sheet Modal Config -->
+  <div id="modalConfig" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4 hidden">
+    <div class="bg-app-darkSurface border border-app-border rounded-t-3xl sm:rounded-3xl max-w-sm w-full p-5 space-y-3.5 animate-in slide-in-from-bottom duration-200">
       <div class="flex items-center justify-between">
-        <h3 class="text-sm font-bold text-slate-900">Bagikan Link ke Karyawan</h3>
-        <button type="button" onclick="toggleModal('modalShare', false)" class="text-slate-400">
+        <h3 class="text-xs font-black text-white uppercase tracking-wider">Sheets Endpoint</h3>
+        <button type="button" onclick="toggleModal('modalConfig', false)" class="text-slate-400">
           <i data-lucide="x" class="w-4 h-4"></i>
         </button>
       </div>
-      <div class="flex justify-center">
-        <img id="dynamicQrImage" src="" alt="QR Presensi" class="w-36 h-36 object-contain rounded-lg border border-slate-200 p-1">
+      <div>
+        <label for="inputScriptUrl" class="block text-[10px] font-bold text-slate-400 mb-1">GOOGLE APPS SCRIPT URL</label>
+        <input type="url" id="inputScriptUrl" placeholder="https://script.google.com/macros/s/.../exec" class="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-xs font-mono text-emerald-400 focus:outline-none">
       </div>
-      <input type="text" id="shareUrlInput" readonly class="w-full text-xs font-mono bg-slate-50 border border-slate-200 px-2.5 py-1.5 rounded-lg text-slate-600 text-center">
-      <button type="button" onclick="copyShareUrl()" class="w-full py-2 bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold rounded-lg flex items-center justify-center gap-1.5 active:scale-95">
-        <i data-lucide="copy" class="w-3.5 h-3.5"></i> Salin Link WhatsApp
+      <button type="button" onclick="saveConfigUrl()" class="w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs uppercase">
+        Simpan Pengaturan
       </button>
     </div>
   </div>
 
-  <!-- Toast Notification -->
-  <div id="toastContainer" class="fixed bottom-3 right-3 left-3 sm:left-auto sm:w-80 z-50 flex flex-col gap-1.5 pointer-events-none"></div>
+  <!-- Modal Photo View -->
+  <div id="modalPhotoView" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="bg-app-darkSurface border border-app-border rounded-3xl max-w-xs w-full p-4 space-y-3 text-center">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-bold text-slate-200">Bukti Wajah</span>
+        <button type="button" onclick="toggleModal('modalPhotoView', false)" class="text-slate-400">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <img id="enlargedPhotoImg" src="" alt="Bukti" class="w-full aspect-square object-cover rounded-2xl bg-slate-900 border border-white/5">
+    </div>
+  </div>
+
+  <!-- Modal Share / QR -->
+  <div id="modalShare" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-app-darkSurface border border-app-border rounded-3xl max-w-xs w-full p-5 space-y-3.5 text-center">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-black text-white">QR Akses Tim</span>
+        <button type="button" onclick="toggleModal('modalShare', false)" class="text-slate-400">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <div class="flex justify-center p-2 bg-white rounded-2xl">
+        <img id="dynamicQrImage" src="" alt="QR" class="w-36 h-36">
+      </div>
+      <input type="text" id="shareUrlInput" readonly class="w-full text-[11px] font-mono bg-slate-950 border border-slate-800 p-2 rounded-xl text-slate-300 text-center">
+      <button type="button" onclick="copyShareUrl()" class="w-full py-2.5 bg-emerald-500 text-slate-950 text-xs font-black rounded-xl uppercase">
+        Salin Link Web
+      </button>
+    </div>
+  </div>
+
+  <!-- Floating Notification Toast -->
+  <div id="toastContainer" class="fixed top-4 max-w-[380px] w-full px-4 z-50 pointer-events-none flex flex-col gap-2"></div>
 
   <script>
-    const DEFAULT_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzfCLlxaKIEM0ZDf8Z0nhznCewJepOyiq5LmI6oAA_HXm_VP9ioYfwizlyXTq9TcZCVdQ/exec"; 
+    const DEFAULT_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzfCLlxaKIEM0ZDf8Z0nhznCewJepOyiq5LmI6oAA_HXm_VP9ioYfwizlyXTq9TcZCVdQ/exec";
 
     let currentGeo = { lat: null, lng: null, accuracy: null, ready: false };
     let capturedPhotoBase64 = null;
     let videoStream = null;
     let currentFacingMode = 'user';
-    let currentAiVerification = null;
     const STORAGE_KEY_CONFIG = 'presensi_google_script_url';
     const STORAGE_KEY_HISTORY = 'presensi_history_records';
 
-    // Otomatisasi Waktu & Tanggal
-    function setWaktuOtomatis() {
-      const sekarang = new Date();
-      const tahun = sekarang.getFullYear();
-      const bulan = String(sekarang.getMonth() + 1).padStart(2, '0');
-      const hari = String(sekarang.getDate()).padStart(2, '0');
-      document.getElementById('inputTanggal').value = `${tahun}-${bulan}-${hari}`;
+    function switchTab(tab) {
+      const vCheckIn = document.getElementById('tabCheckIn');
+      const vHistory = document.getElementById('tabHistory');
+      const btnC = document.getElementById('navBtnCheckIn');
+      const btnH = document.getElementById('navBtnHistory');
 
-      const jam = String(sekarang.getHours()).padStart(2, '0');
-      const menit = String(sekarang.getMinutes()).padStart(2, '0');
-      const detik = String(sekarang.getSeconds()).padStart(2, '0');
-      document.getElementById('inputJam').value = `${jam}:${menit}:${detik}`;
-    }
-
-    async function callGemini(payload, maxRetries = 2) {
-      const apiKey = ""; // Disuntikkan secara otomatis bila di hosting canvas
-      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
-
-      for (let attempt = 0; attempt < maxRetries; attempt++) {
-        try {
-          const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-          });
-          if (!response.ok) throw new Error(`Gemini API Error: ${response.status}`);
-          return await response.json();
-        } catch (err) {
-          if (attempt === maxRetries - 1) throw err;
-          await new Promise(res => setTimeout(res, 1000));
-        }
-      }
-    }
-
-    async function analyzeSelfieWithGemini() {
-      if (!capturedPhotoBase64) {
-        showToast('Ambil foto selfie terlebih dahulu!', 'warning');
-        return;
-      }
-
-      const btn = document.getElementById('btnTriggerAiVision');
-      const box = document.getElementById('aiVisionResultBox');
-      const headline = document.getElementById('aiVisionHeadline');
-      const feedback = document.getElementById('aiVisionFeedback');
-      const scoreBadge = document.getElementById('aiReadinessScoreBadge');
-      const motivation = document.getElementById('aiVisionMotivation');
-
-      btn.disabled = true;
-      btn.innerHTML = `<i data-lucide="loader-2" class="w-3 h-3 animate-spin"></i> Memindai...`;
-      lucide.createIcons();
-
-      try {
-        const base64Data = capturedPhotoBase64.split(',')[1];
-        const prompt = `Periksa foto selfie karyawan resto untuk presensi. Output JSON murni tanpa triple-backticks markdown:
-{"isValidFace": true, "readinessScore": 95, "faceStatus": "Wajah Jelas", "neatness": "Rapi dan siap bertugas", "dailyGreeting": "Semangat melayani dengan ramah hari ini!"}`;
-
-        const payload = {
-          contents: [{
-            role: 'user',
-            parts: [
-              { text: prompt },
-              { inlineData: { mimeType: 'image/jpeg', data: base64Data } }
-            ]
-          }],
-          generationConfig: { responseMimeType: 'application/json' }
-        };
-
-        const result = await callGemini(payload);
-        const textResponse = result?.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (!textResponse) throw new Error('Format tidak valid');
-        const parsed = JSON.parse(textResponse);
-
-        currentAiVerification = parsed;
-        headline.textContent = parsed.faceStatus || 'Terverifikasi';
-        scoreBadge.textContent = `Skor: ${parsed.readinessScore || 90}%`;
-        feedback.textContent = `${parsed.neatness || 'Penampilan rapi.'}`;
-        motivation.textContent = `💡 "${parsed.dailyGreeting || 'Selamat bertugas!'}"`;
-        
-        box.classList.remove('hidden');
-        showToast('Analisis selfie AI berhasil!', 'success');
-      } catch (err) {
-        console.error('Gemini Vision Error:', err);
-        showToast('Gagal memindai dengan AI.', 'error');
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = `<i data-lucide="scan-face" class="w-3 h-3"></i> Analisis AI`;
-        lucide.createIcons();
-      }
-    }
-
-    function toggleAiNoteAssistant(forcedState) {
-      const box = document.getElementById('aiNoteBox');
-      if (typeof forcedState === 'boolean') {
-        forcedState ? box.classList.remove('hidden') : box.classList.add('hidden');
+      if (tab === 'checkin') {
+        vCheckIn.classList.remove('hidden');
+        vHistory.classList.add('hidden');
+        btnC.className = 'flex flex-col items-center gap-1 text-emerald-400';
+        btnH.className = 'flex flex-col items-center gap-1 text-slate-400 hover:text-white';
       } else {
-        box.classList.toggle('hidden');
-      }
-      lucide.createIcons();
-    }
-
-    function setAiPromptPreset(text) {
-      document.getElementById('aiCustomPrompt').value = text;
-    }
-
-    async function generateNoteWithGemini() {
-      const input = document.getElementById('aiCustomPrompt');
-      const promptText = input.value.trim();
-      const attendanceType = document.querySelector('input[name="attendanceType"]:checked').value;
-      const division = document.getElementById('divisionSelect').value || 'Outlet Resto';
-      const btn = document.getElementById('btnGenerateAiNote');
-      const targetTextarea = document.getElementById('attendanceNotes');
-
-      if (!promptText) {
-        showToast('Ketik poin atau pilih preset.', 'warning');
-        return;
-      }
-
-      btn.disabled = true;
-      btn.innerHTML = `<i data-lucide="loader-2" class="w-3 h-3 animate-spin"></i>`;
-      lucide.createIcons();
-
-      try {
-        const payload = {
-          contents: [{
-            parts: [{
-              text: `Buatkan 1 kalimat formal, sopan, dan ringkas dalam Bahasa Indonesia untuk catatan presensi "${attendanceType}" di outlet "${division}". Poin karyawan: "${promptText}". Tampilkan HANYA teksnya saja tanpa tanda petik.`
-            }]
-          }]
-        };
-
-        const result = await callGemini(payload);
-        const generated = result?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
-
-        if (generated) {
-          targetTextarea.value = generated;
-          toggleAiNoteAssistant(false);
-          showToast('Catatan dibuat oleh AI!', 'success');
-        }
-      } catch (err) {
-        showToast('Gagal membuat teks AI.', 'error');
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = `<i data-lucide="sparkles" class="w-3 h-3"></i> Tulis`;
-        lucide.createIcons();
+        vCheckIn.classList.add('hidden');
+        vHistory.classList.remove('hidden');
+        btnH.className = 'flex flex-col items-center gap-1 text-emerald-400';
+        btnC.className = 'flex flex-col items-center gap-1 text-slate-400 hover:text-white';
+        renderHistoryList();
       }
     }
 
-    async function generateHRSummaryWithGemini() {
-      const records = getStoredHistory();
-      const container = document.getElementById('aiDailyBriefingContainer');
-      const content = document.getElementById('aiDailyBriefingContent');
+    function syncDateTime() {
+      const now = new Date();
+      const dateOpts = { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric', timeZone: 'Asia/Jakarta' };
+      document.getElementById('currentDateDisplay').textContent = now.toLocaleDateString('id-ID', dateOpts);
 
-      if (!records || records.length === 0) {
-        showToast('Belum ada data presensi hari ini.', 'warning');
-        return;
-      }
+      const timeOpts = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'Asia/Jakarta' };
+      document.getElementById('currentTimeDisplay').textContent = now.toLocaleTimeString('id-ID', timeOpts);
 
-      container.classList.remove('hidden');
-      content.innerHTML = `<div class="flex items-center gap-2 text-indigo-300"><i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Gemini sedang menganalisis data presensi...</div>`;
-      lucide.createIcons();
+      const yr = now.getFullYear();
+      const mo = String(now.getMonth() + 1).padStart(2, '0');
+      const da = String(now.getDate()).padStart(2, '0');
+      document.getElementById('inputTanggal').value = `${yr}-${mo}-${da}`;
 
-      try {
-        const summaryData = records.slice(0, 15).map(r => ({
-          nama: r.nama, cabang: r.cabang, shift: r.shift, tipe: r.tipe, waktu: r.timestamp
-        }));
-
-        const payload = {
-          contents: [{
-            parts: [{
-              text: `Buat ringkasan presensi singkat untuk supervisor resto dari data berikut: ${JSON.stringify(summaryData)}. Cantumkan: 1. Jumlah Masuk/Izin/Off, 2. Kepatuhan Outlet, 3. Arahan Singkat. Gunakan format ringkas & jelas.`
-            }]
-          }]
-        };
-
-        const result = await callGemini(payload);
-        const text = result?.candidates?.[0]?.content?.parts?.[0]?.text;
-        content.textContent = text || 'Gagal memuat ringkasan.';
-      } catch (err) {
-        content.textContent = 'Terjadi kesalahan saat membuat ringkasan AI.';
-      }
-    }
-
-    function closeAiDailyBriefing() {
-      document.getElementById('aiDailyBriefingContainer').classList.add('hidden');
+      const hr = String(now.getHours()).padStart(2, '0');
+      const mi = String(now.getMinutes()).padStart(2, '0');
+      const sc = String(now.getSeconds()).padStart(2, '0');
+      document.getElementById('inputJam').value = `${hr}:${mi}:${sc}`;
     }
 
     document.addEventListener('DOMContentLoaded', () => {
       lucide.createIcons();
-      startLiveClock();
-      setWaktuOtomatis();
-      checkConfiguredUrl();
-      renderHistoryTable();
-      updateDashboardMetrics();
+      syncDateTime();
+      setInterval(syncDateTime, 1000);
       startCamera();
-      requestGeolocation();
+      requestLocation();
+      renderHistoryList();
+      checkConfiguredUrl();
     });
-
-    function startLiveClock() {
-      const dateEl = document.getElementById('currentDateDisplay');
-      const timeEl = document.getElementById('currentTimeDisplay');
-
-      function tick() {
-        const now = new Date();
-        const optionsDate = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric', timeZone: 'Asia/Jakarta' };
-        dateEl.textContent = now.toLocaleDateString('id-ID', optionsDate);
-
-        const optionsTime = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZone: 'Asia/Jakarta' };
-        timeEl.textContent = now.toLocaleTimeString('id-ID', optionsTime);
-      }
-      tick();
-      setInterval(tick, 1000);
-    }
 
     async function startCamera() {
       const video = document.getElementById('webcamVideo');
-      const placeholder = document.getElementById('cameraOffPlaceholder');
+      const offHud = document.getElementById('cameraOffPlaceholder');
       const guide = document.getElementById('cameraGuideOverlay');
 
       if (videoStream) {
@@ -908,13 +436,13 @@ function doGet() {
 
       try {
         const constraints = {
-          video: { facingMode: currentFacingMode, width: { ideal: 640 }, height: { ideal: 640 } },
+          video: { facingMode: currentFacingMode, width: { ideal: 540 }, height: { ideal: 540 } },
           audio: false
         };
         videoStream = await navigator.mediaDevices.getUserMedia(constraints);
         video.srcObject = videoStream;
         video.classList.remove('hidden');
-        placeholder.classList.add('hidden');
+        offHud.classList.add('hidden');
         guide.classList.remove('hidden');
 
         if (currentFacingMode === 'user') {
@@ -924,7 +452,7 @@ function doGet() {
         }
       } catch (err) {
         video.classList.add('hidden');
-        placeholder.classList.remove('hidden');
+        offHud.classList.remove('hidden');
         guide.classList.add('hidden');
       }
     }
@@ -938,89 +466,68 @@ function doGet() {
       const video = document.getElementById('webcamVideo');
       const canvas = document.getElementById('photoCanvas');
       const preview = document.getElementById('photoPreviewImg');
-      const btnCapture = document.getElementById('btnCapturePhoto');
-      const btnRetake = document.getElementById('btnRetakePhoto');
-      const statusBadge = document.getElementById('photoStatusBadge');
+      const btnCap = document.getElementById('btnCapturePhoto');
+      const btnRet = document.getElementById('btnRetakePhoto');
+      const dot = document.getElementById('photoStatusDot');
       const guide = document.getElementById('cameraGuideOverlay');
 
       if (!videoStream || video.videoWidth === 0) {
-        showToast('Kamera belum siap.', 'error');
+        triggerToast('Kamera belum siap!', 'error');
         return;
       }
 
-      const w = video.videoWidth;
-      const h = video.videoHeight;
-      canvas.width = w;
-      canvas.height = h;
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
       const ctx = canvas.getContext('2d');
 
       if (currentFacingMode === 'user') {
-        ctx.translate(w, 0);
+        ctx.translate(canvas.width, 0);
         ctx.scale(-1, 1);
       }
-      ctx.drawImage(video, 0, 0, w, h);
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-      capturedPhotoBase64 = canvas.toDataURL('image/jpeg', 0.65);
+      capturedPhotoBase64 = canvas.toDataURL('image/jpeg', 0.7);
       preview.src = capturedPhotoBase64;
       preview.classList.remove('hidden');
       video.classList.add('hidden');
       guide.classList.add('hidden');
 
-      btnCapture.classList.add('hidden');
-      btnRetake.classList.remove('hidden');
+      btnCap.classList.add('hidden');
+      btnRet.classList.remove('hidden');
 
-      statusBadge.textContent = 'Foto Siap ✓';
-      statusBadge.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800';
-
-      const aiSection = document.getElementById('aiVerificationSection');
-      if (aiSection) {
-        aiSection.classList.remove('hidden');
-        analyzeSelfieWithGemini();
-      }
-      showToast('Foto selfie berhasil diambil!', 'success');
+      dot.className = 'w-3 h-3 rounded-full bg-emerald-400 ring-4 ring-emerald-400/20';
+      triggerToast('Foto selfie terpasang!', 'success');
     }
 
     function retakeSnapshot() {
       const video = document.getElementById('webcamVideo');
       const preview = document.getElementById('photoPreviewImg');
-      const btnCapture = document.getElementById('btnCapturePhoto');
-      const btnRetake = document.getElementById('btnRetakePhoto');
-      const statusBadge = document.getElementById('photoStatusBadge');
+      const btnCap = document.getElementById('btnCapturePhoto');
+      const btnRet = document.getElementById('btnRetakePhoto');
+      const dot = document.getElementById('photoStatusDot');
       const guide = document.getElementById('cameraGuideOverlay');
 
       capturedPhotoBase64 = null;
-      currentAiVerification = null;
       preview.classList.add('hidden');
       preview.src = '';
       video.classList.remove('hidden');
       guide.classList.remove('hidden');
 
-      btnCapture.classList.remove('hidden');
-      btnRetake.classList.add('hidden');
+      btnCap.classList.remove('hidden');
+      btnRet.classList.add('hidden');
 
-      statusBadge.textContent = 'Wajib Foto';
-      statusBadge.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800';
-
-      const aiSection = document.getElementById('aiVerificationSection');
-      const aiBox = document.getElementById('aiVisionResultBox');
-      if (aiSection) aiSection.classList.add('hidden');
-      if (aiBox) aiBox.classList.add('hidden');
+      dot.className = 'w-3 h-3 rounded-full bg-amber-400 ring-4 ring-amber-400/20 animate-ping';
     }
 
-    function requestGeolocation(notifyUser = false) {
-      const statusEl = document.getElementById('geoStatusText');
-      const coordsEl = document.getElementById('geoCoordinatesDisplay');
-      const accEl = document.getElementById('geoAccuracyDisplay');
-      const mapContainer = document.getElementById('geoMapLinkContainer');
-      const mapAnchor = document.getElementById('geoMapAnchor');
-
+    function requestLocation() {
+      const pill = document.getElementById('geoPillStatus');
       if (!navigator.geolocation) {
-        statusEl.innerHTML = `<span class="text-rose-600">GPS Tidak Didukung</span>`;
+        pill.innerHTML = `<span class="text-rose-400">GPS Tidak Ada</span>`;
         return;
       }
 
       navigator.geolocation.getCurrentPosition(
-        (pos) => {
+        pos => {
           const { latitude, longitude, accuracy } = pos.coords;
           currentGeo = {
             lat: latitude.toFixed(6),
@@ -1028,98 +535,37 @@ function doGet() {
             accuracy: Math.round(accuracy),
             ready: true
           };
-
-          statusEl.innerHTML = `<span class="text-emerald-600 font-bold">✓ Terkunci</span>`;
-          coordsEl.textContent = `${currentGeo.lat}, ${currentGeo.lng}`;
-          accEl.textContent = `± ${currentGeo.accuracy}m`;
-          mapAnchor.href = `https://www.google.com/maps?q=${currentGeo.lat},${currentGeo.lng}`;
-          mapContainer.classList.remove('hidden');
-
-          if (notifyUser) showToast('Lokasi GPS berhasil diperbarui.', 'success');
+          pill.innerHTML = `<i data-lucide="shield-check" class="w-2.5 h-2.5 text-emerald-400"></i> GPS Aktif (±${currentGeo.accuracy}m)`;
+          lucide.createIcons();
         },
-        (err) => {
+        () => {
           currentGeo.ready = false;
-          statusEl.innerHTML = `<span class="text-rose-600 font-bold">GPS Ditolak</span>`;
-          coordsEl.textContent = 'Tidak Tersedia';
-          accEl.textContent = '-';
-          mapContainer.classList.add('hidden');
+          pill.innerHTML = `<span class="text-rose-400">GPS Terbatas</span>`;
         },
-        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+        { enableHighAccuracy: true, timeout: 8000 }
       );
     }
 
-    function checkConfiguredUrl() {
-      const activeUrl = localStorage.getItem(STORAGE_KEY_CONFIG) || DEFAULT_SCRIPT_URL || '';
-      const badge = document.getElementById('connectionStatusBadge');
-      const badgeText = document.getElementById('connectionStatusText');
-      const input = document.getElementById('inputScriptUrl');
+    function updateAttendanceVisual() {
+      const val = document.querySelector('input[name="attendanceType"]:checked').value;
+      const pIn = document.getElementById('pillCheckIn');
+      const pOff = document.getElementById('pillOff');
+      const pPermit = document.getElementById('pillPermit');
 
-      if (input) input.value = activeUrl;
-
-      if (activeUrl && activeUrl.startsWith('https://script.google.com')) {
-        badge.className = 'hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200';
-        badgeText.textContent = 'Sheets Terhubung';
-      } else {
-        badge.className = 'hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-amber-50 text-amber-700 border border-amber-200';
-        badgeText.textContent = 'Mode Offline/Demo';
-      }
-    }
-
-    function getActiveScriptUrl() {
-      return localStorage.getItem(STORAGE_KEY_CONFIG) || DEFAULT_SCRIPT_URL || '';
-    }
-
-    function openShareModal() {
-      const currentUrl = window.location.href;
-      document.getElementById('shareUrlInput').value = currentUrl;
-      document.getElementById('dynamicQrImage').src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(currentUrl)}`;
-      toggleModal('modalShare', true);
-      lucide.createIcons();
-    }
-
-    function copyShareUrl() {
-      const shareInput = document.getElementById('shareUrlInput');
-      shareInput.select();
-      document.execCommand('copy');
-      showToast('Link berhasil disalin ke clipboard!', 'success');
-    }
-
-    function saveConfigUrl() {
-      const input = document.getElementById('inputScriptUrl');
-      const url = input.value.trim();
-      localStorage.setItem(STORAGE_KEY_CONFIG, url);
-      checkConfiguredUrl();
-      toggleModal('modalConfig', false);
-      showToast('Konfigurasi URL disimpan.', 'success');
-    }
-
-    async function testSheetConnection() {
-      const url = document.getElementById('inputScriptUrl').value.trim();
-      if (!url) return showToast('Masukkan URL terlebih dahulu.', 'warning');
-      try {
-        await fetch(url, { method: 'GET', mode: 'no-cors' });
-        showToast('Koneksi endpoint tersambung!', 'success');
-      } catch (err) {
-        showToast('Gagal menghubungi endpoint.', 'error');
-      }
-    }
-
-    function updateAttendanceTypeVisual() {
-      const selected = document.querySelector('input[name="attendanceType"]:checked').value;
-      const lIn = document.getElementById('labelCheckIn');
-      const lOff = document.getElementById('labelOff');
-      const lPermit = document.getElementById('labelPermit');
-
-      [lIn, lOff, lPermit].forEach(el => {
-        el.className = 'cursor-pointer relative flex flex-col items-center justify-center p-2.5 rounded-xl border-2 border-slate-200 bg-white text-slate-700 transition-all text-center';
+      [pIn, pOff, pPermit].forEach(el => {
+        el.className = 'cursor-pointer py-2.5 px-2 rounded-2xl bg-slate-900 border border-app-border text-center transition-all opacity-60';
+        el.querySelector('span').className = 'text-xs font-black text-slate-400 tracking-tight';
       });
 
-      if (selected.includes('Masuk')) {
-        lIn.className = 'cursor-pointer relative flex flex-col items-center justify-center p-2.5 rounded-xl border-2 border-brand-500 bg-brand-50/60 text-brand-900 transition-all text-center';
-      } else if (selected.includes('OFF')) {
-        lOff.className = 'cursor-pointer relative flex flex-col items-center justify-center p-2.5 rounded-xl border-2 border-amber-500 bg-amber-50/60 text-amber-900 transition-all text-center';
+      if (val.includes('Masuk')) {
+        pIn.className = 'cursor-pointer py-2.5 px-2 rounded-2xl bg-emerald-500/20 border border-emerald-500/50 text-center transition-all opacity-100 shadow-md';
+        pIn.querySelector('span').className = 'text-xs font-black text-emerald-300 tracking-tight';
+      } else if (val.includes('OFF')) {
+        pOff.className = 'cursor-pointer py-2.5 px-2 rounded-2xl bg-amber-500/20 border border-amber-500/50 text-center transition-all opacity-100 shadow-md';
+        pOff.querySelector('span').className = 'text-xs font-black text-amber-300 tracking-tight';
       } else {
-        lPermit.className = 'cursor-pointer relative flex flex-col items-center justify-center p-2.5 rounded-xl border-2 border-indigo-500 bg-indigo-50/60 text-indigo-900 transition-all text-center';
+        pPermit.className = 'cursor-pointer py-2.5 px-2 rounded-2xl bg-indigo-500/20 border border-indigo-500/50 text-center transition-all opacity-100 shadow-md';
+        pPermit.querySelector('span').className = 'text-xs font-black text-indigo-300 tracking-tight';
       }
     }
 
@@ -1135,24 +581,21 @@ function doGet() {
       const tgl = document.getElementById('inputTanggal').value;
       const jam = document.getElementById('inputJam').value;
 
-      const submitBtn = document.getElementById('btnSubmitAttendance');
-      const submitText = document.getElementById('submitButtonText');
-
-      if (!name || !nip || !cabang || !shift) {
-        showToast('Lengkapi semua kolom formulir!', 'error');
-        return;
-      }
-
       if (!capturedPhotoBase64) {
-        showToast('Ambil foto selfie sebelum mengirim presensi!', 'warning');
+        triggerToast('Ambil selfie terlebih dahulu!', 'warning');
         return;
       }
+
+      const btn = document.getElementById('btnSubmitAttendance');
+      const btnTxt = document.getElementById('submitButtonText');
+      btn.disabled = true;
+      btnTxt.textContent = 'Memverifikasi Presensi...';
 
       const timestamp = new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' });
       const mapsUrl = currentGeo.ready ? `https://www.google.com/maps?q=${currentGeo.lat},${currentGeo.lng}` : '-';
 
       const payload = {
-        timestamp: timestamp,
+        timestamp,
         tanggalForm: tgl,
         jamForm: jam,
         nama: name,
@@ -1163,51 +606,35 @@ function doGet() {
         catatan: notes || '-',
         latitude: currentGeo.lat || '-',
         longitude: currentGeo.lng || '-',
-        accuracy: currentGeo.accuracy || '-',
         mapsUrl: mapsUrl,
         hasPhoto: true,
-        photoData: capturedPhotoBase64,
-        aiScore: currentAiVerification?.readinessScore || null
+        photoData: capturedPhotoBase64
       };
 
-      submitBtn.disabled = true;
-      submitText.textContent = 'Menyimpan...';
+      const targetUrl = localStorage.getItem(STORAGE_KEY_CONFIG) || DEFAULT_SCRIPT_URL;
 
-      const scriptUrl = getActiveScriptUrl();
-      let synced = false;
-
-      if (scriptUrl) {
+      if (targetUrl) {
         try {
-          await fetch(scriptUrl, {
+          await fetch(targetUrl, {
             method: 'POST',
             mode: 'no-cors',
             headers: { 'Content-Type': 'text/plain;charset=utf-8' },
             body: JSON.stringify(payload)
           });
-          synced = true;
-        } catch (err) {
-          synced = false;
-        }
+        } catch (err) {}
       }
 
-      saveRecordToLocalStorage({
-        ...payload,
-        id: 'ATT-' + Date.now(),
-        syncedToCloud: synced || Boolean(scriptUrl)
-      });
+      saveLocalLog({ ...payload, id: 'ID-' + Date.now() });
 
-      showToast(`Presensi ${name} berhasil dicatat!`, 'success');
-
+      triggerToast(`Presensi ${name} Tercatat!`, 'success');
       document.getElementById('attendanceNotes').value = '';
       retakeSnapshot();
-      renderHistoryTable();
-      updateDashboardMetrics();
 
-      submitBtn.disabled = false;
-      submitText.textContent = 'Kirim Presensi Sekarang';
+      btn.disabled = false;
+      btnTxt.textContent = 'Verifikasi & Check-In Sekarang';
     }
 
-    function getStoredHistory() {
+    function getLocalLogs() {
       try {
         const raw = localStorage.getItem(STORAGE_KEY_HISTORY);
         return raw ? JSON.parse(raw) : [];
@@ -1216,171 +643,126 @@ function doGet() {
       }
     }
 
-    function saveRecordToLocalStorage(record) {
-      const history = getStoredHistory();
-      history.unshift(record);
-      if (history.length > 50) history.pop();
-      localStorage.setItem(STORAGE_KEY_HISTORY, JSON.stringify(history));
+    function saveLocalLog(rec) {
+      const arr = getLocalLogs();
+      arr.unshift(rec);
+      if (arr.length > 40) arr.pop();
+      localStorage.setItem(STORAGE_KEY_HISTORY, JSON.stringify(arr));
     }
 
-    function renderHistoryTable() {
-      const tbody = document.getElementById('attendanceTableBody');
-      const mobileList = document.getElementById('mobileHistoryList');
-      const records = getStoredHistory();
+    function renderHistoryList() {
+      const wrap = document.getElementById('mobileHistoryList');
+      const recs = getLocalLogs();
 
-      if (!records || records.length === 0) {
-        const emptyText = `<div class="py-6 text-center text-slate-400 text-xs font-medium">Belum ada rekaman presensi.</div>`;
-        tbody.innerHTML = `<tr><td colspan="6" class="py-6 text-center text-slate-400 text-xs">Belum ada rekaman presensi.</td></tr>`;
-        mobileList.innerHTML = emptyText;
+      if (!recs || recs.length === 0) {
+        wrap.innerHTML = `<div class="p-8 text-center text-slate-500 text-xs">Belum ada riwayat aktivitas.</div>`;
         return;
       }
 
-      // Render Tampilan Mobile Cards
-      mobileList.innerHTML = records.map(item => {
+      wrap.innerHTML = recs.map(item => {
         const isMasuk = item.tipe.includes('Masuk');
-        const badgeColor = isMasuk ? 'bg-emerald-100 text-emerald-800' : (item.tipe.includes('OFF') ? 'bg-amber-100 text-amber-800' : 'bg-indigo-100 text-indigo-800');
+        const badgeColor = isMasuk ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' : 'bg-amber-500/20 text-amber-400 border-amber-500/30';
 
         return `
-          <div class="p-3 bg-white rounded-xl border border-slate-200/80 shadow-2xs space-y-2">
+          <div class="p-3.5 bg-app-card rounded-2xl border border-app-border space-y-2">
             <div class="flex items-center justify-between">
-              <span class="font-mono text-[11px] text-slate-500">${item.timestamp}</span>
-              <span class="px-2 py-0.5 rounded text-[10px] font-bold ${badgeColor}">${item.tipe}</span>
+              <span class="text-[10px] font-mono text-slate-400">${item.timestamp}</span>
+              <span class="px-2 py-0.5 rounded-full border text-[9px] font-black ${badgeColor}">${item.tipe}</span>
             </div>
             <div class="flex items-center justify-between">
               <div>
-                <h4 class="text-xs font-bold text-slate-900">${escapeHtml(item.nama)}</h4>
-                <p class="text-[10px] text-slate-500 font-mono">${escapeHtml(item.nip)} &bull; ${escapeHtml(item.cabang)}</p>
+                <h4 class="text-xs font-bold text-white">${escapeHtml(item.nama)}</h4>
+                <p class="text-[10px] text-slate-400">${escapeHtml(item.cabang)} &bull; ${escapeHtml(item.shift)}</p>
               </div>
-              ${item.photoData ? `<button type="button" onclick="viewPhotoModal('${item.id}')" class="px-2 py-1 bg-slate-100 hover:bg-slate-200 rounded text-[11px] font-semibold text-slate-700 flex items-center gap-1"><i data-lucide="image" class="w-3 h-3"></i> Foto</button>` : ''}
-            </div>
-            <div class="flex items-center justify-between pt-1 border-t border-slate-100 text-[10px] text-slate-500">
-              <span>Shift: <strong>${escapeHtml(item.shift)}</strong></span>
-              ${item.latitude !== '-' ? `<a href="${item.mapsUrl}" target="_blank" class="text-blue-600 font-semibold flex items-center gap-0.5"><i data-lucide="map-pin" class="w-3 h-3"></i> Lokasi GPS</a>` : '<span>Tanpa GPS</span>'}
+              ${item.photoData ? `<button type="button" onclick="viewPhotoModal('${item.id}')" class="px-2.5 py-1 bg-slate-800 rounded-xl text-[10px] font-bold text-slate-300 border border-white/5">Foto</button>` : ''}
             </div>
           </div>
         `;
       }).join('');
-
-      // Render Tampilan Desktop Table
-      tbody.innerHTML = records.map(item => {
-        const isMasuk = item.tipe.includes('Masuk');
-        const badgeColor = isMasuk ? 'bg-emerald-100 text-emerald-800' : (item.tipe.includes('OFF') ? 'bg-amber-100 text-amber-800' : 'bg-indigo-100 text-indigo-800');
-
-        return `
-          <tr class="hover:bg-slate-50">
-            <td class="py-2.5 px-3.5 font-mono text-xs text-slate-500 whitespace-nowrap">${item.timestamp}</td>
-            <td class="py-2.5 px-3.5">
-              <div class="font-bold text-slate-900 text-xs">${escapeHtml(item.nama)}</div>
-              <div class="text-[10px] text-slate-500 font-mono">${escapeHtml(item.nip)}</div>
-            </td>
-            <td class="py-2.5 px-3.5 text-xs">
-              <div class="font-medium text-slate-800">${escapeHtml(item.cabang)}</div>
-              <div class="text-[10px] text-slate-500">${escapeHtml(item.shift)}</div>
-            </td>
-            <td class="py-2.5 px-3.5 whitespace-nowrap">
-              <span class="px-2 py-0.5 rounded text-[10px] font-bold ${badgeColor}">${item.tipe}</span>
-            </td>
-            <td class="py-2.5 px-3.5 whitespace-nowrap text-xs">
-              ${item.latitude !== '-' ? `<a href="${item.mapsUrl}" target="_blank" class="text-blue-600 underline mr-2">GPS</a>` : '<span class="text-slate-400 mr-2">-</span>'}
-              ${item.photoData ? `<button type="button" onclick="viewPhotoModal('${item.id}')" class="text-brand-600 font-medium">Foto</button>` : ''}
-            </td>
-            <td class="py-2.5 px-3.5 whitespace-nowrap text-[11px] font-semibold text-emerald-600">
-              ${item.syncedToCloud ? 'Tersimpan' : 'Lokal'}
-            </td>
-          </tr>
-        `;
-      }).join('');
-
       lucide.createIcons();
     }
 
-    function updateDashboardMetrics() {
-      const records = getStoredHistory();
-      const todayStr = new Date().toLocaleDateString('id-ID');
-      const todayRecords = records.filter(r => r.timestamp && r.timestamp.includes(todayStr));
-
-      document.getElementById('statTodayCount').textContent = todayRecords.length;
-      document.getElementById('statCheckInCount').textContent = todayRecords.filter(r => r.tipe.includes('Masuk')).length;
-      document.getElementById('statPermitCount').textContent = todayRecords.filter(r => !r.tipe.includes('Masuk')).length;
-    }
-
-    function clearLocalHistory() {
-      if (confirm('Hapus riwayat lokal di perangkat ini?')) {
-        localStorage.removeItem(STORAGE_KEY_HISTORY);
-        renderHistoryTable();
-        updateDashboardMetrics();
-        showToast('Riwayat lokal dihapus.', 'info');
-      }
-    }
-
-    function exportHistoryToCSV() {
-      const records = getStoredHistory();
-      if (!records || records.length === 0) return showToast('Belum ada riwayat presensi.', 'warning');
-
-      const headers = ['ID', 'Waktu', 'Tanggal Form', 'Jam Form', 'Nama', 'NIP', 'Cabang', 'Shift', 'Tipe', 'Catatan'];
-      const rows = records.map(r => [
-        `"${r.id || ''}"`, `"${r.timestamp || ''}"`, `"${r.tanggalForm || ''}"`, `"${r.jamForm || ''}"`,
-        `"${(r.nama || '').replace(/"/g, '""')}"`, `"${r.nip || ''}"`, `"${r.cabang || ''}"`, `"${r.shift || ''}"`,
-        `"${r.tipe || ''}"`, `"${(r.catatan || '').replace(/"/g, '""')}"`
-      ]);
-
-      const csvContent = '\uFEFF' + [headers.join(','), ...rows.map(e => e.join(','))].join('\r\n');
-      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = `Presensi_${new Date().toISOString().slice(0,10)}.csv`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-
-    function toggleModal(modalId, show) {
-      document.getElementById(modalId).classList.toggle('hidden', !show);
-    }
-
-    document.getElementById('btnOpenConfig').addEventListener('click', () => toggleModal('modalConfig', true));
-    document.getElementById('btnOpenGuide').addEventListener('click', () => toggleModal('modalGuide', true));
-
-    function viewPhotoModal(recordId) {
-      const records = getStoredHistory();
-      const target = records.find(r => r.id === recordId);
-      if (target && target.photoData) {
+    function viewPhotoModal(id) {
+      const target = getLocalLogs().find(r => r.id === id);
+      if (target?.photoData) {
         document.getElementById('enlargedPhotoImg').src = target.photoData;
         toggleModal('modalPhotoView', true);
       }
     }
 
-    function copyAppsScriptCode() {
-      const code = document.getElementById('scriptCodeSnippet').innerText;
-      navigator.clipboard.writeText(code).then(() => {
-        document.getElementById('btnCopyText').textContent = 'Tersalin!';
-        showToast('Kode berhasil disalin!', 'success');
-        setTimeout(() => { document.getElementById('btnCopyText').textContent = 'Salin'; }, 2000);
-      });
+    function checkConfiguredUrl() {
+      const input = document.getElementById('inputScriptUrl');
+      const val = localStorage.getItem(STORAGE_KEY_CONFIG) || DEFAULT_SCRIPT_URL;
+      if (input) input.value = val;
     }
 
-    function showToast(message, type = 'info') {
-      const container = document.getElementById('toastContainer');
-      const toast = document.createElement('div');
-      
-      let bg = 'bg-slate-900 text-white';
-      let icon = 'info';
-      if (type === 'success') { bg = 'bg-emerald-700 text-white'; icon = 'check-circle-2'; }
-      else if (type === 'error') { bg = 'bg-rose-700 text-white'; icon = 'alert-octagon'; }
-      else if (type === 'warning') { bg = 'bg-amber-600 text-white'; icon = 'alert-triangle'; }
+    function saveConfigUrl() {
+      const input = document.getElementById('inputScriptUrl');
+      localStorage.setItem(STORAGE_KEY_CONFIG, input.value.trim());
+      toggleModal('modalConfig', false);
+      triggerToast('Koneksi URL berhasil disimpan', 'success');
+    }
 
-      toast.className = `${bg} pointer-events-auto px-3 py-2 rounded-xl shadow-lg flex items-center gap-2 text-xs font-semibold transition-all duration-300 transform translate-y-2 opacity-0`;
-      toast.innerHTML = `<i data-lucide="${icon}" class="w-4 h-4 shrink-0"></i><div class="flex-1">${message}</div>`;
+    function openShareModal() {
+      const url = window.location.href;
+      document.getElementById('shareUrlInput').value = url;
+      document.getElementById('dynamicQrImage').src = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(url)}`;
+      toggleModal('modalShare', true);
+    }
 
-      container.appendChild(toast);
-      lucide.createIcons();
+    function copyShareUrl() {
+      const input = document.getElementById('shareUrlInput');
+      input.select();
+      document.execCommand('copy');
+      triggerToast('Link berhasil disalin', 'success');
+    }
 
-      requestAnimationFrame(() => toast.classList.remove('translate-y-2', 'opacity-0'));
+    function clearLocalHistory() {
+      if (confirm('Bersihkan semua log lokal?')) {
+        localStorage.removeItem(STORAGE_KEY_HISTORY);
+        renderHistoryList();
+        triggerToast('Riwayat berhasil dibersihkan', 'info');
+      }
+    }
+
+    function exportHistoryToCSV() {
+      const records = getLocalLogs();
+      if (records.length === 0) return triggerToast('Tidak ada data ekspor.', 'warning');
+      const headers = ['ID,Waktu,Nama,NIP,Cabang,Shift,Tipe,Catatan'];
+      const rows = records.map(r => `"${r.id}","${r.timestamp}","${r.nama}","${r.nip}","${r.cabang}","${r.shift}","${r.tipe}","${r.catatan}"`);
+      const blob = new Blob(['\uFEFF' + [headers, ...rows].join('\n')], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `Presensi_${new Date().toISOString().slice(0,10)}.csv`;
+      link.click();
+    }
+
+    function toggleModal(id, show) {
+      document.getElementById(id).classList.toggle('hidden', !show);
+    }
+
+    document.getElementById('btnOpenConfig').addEventListener('click', () => toggleModal('modalConfig', true));
+
+    function triggerToast(msg, type = 'info') {
+      const cont = document.getElementById('toastContainer');
+      const t = document.createElement('div');
+      let style = 'bg-slate-900 border-slate-700 text-white';
+      if (type === 'success') style = 'bg-emerald-950 border-emerald-500/40 text-emerald-200';
+      if (type === 'warning') style = 'bg-amber-950 border-amber-500/40 text-amber-200';
+      if (type === 'error') style = 'bg-rose-950 border-rose-500/40 text-rose-200';
+
+      t.className = `${style} border px-3.5 py-2.5 rounded-2xl shadow-2xl text-xs font-bold flex items-center gap-2 transform transition-all duration-300 -translate-y-2 opacity-0 backdrop-blur-md`;
+      t.innerHTML = `<span class="w-2 h-2 rounded-full bg-current"></span><span>${msg}</span>`;
+      cont.appendChild(t);
+
+      requestAnimationFrame(() => {
+        t.classList.remove('-translate-y-2', 'opacity-0');
+      });
+
       setTimeout(() => {
-        toast.classList.add('opacity-0', 'translate-y-2');
-        setTimeout(() => toast.remove(), 300);
-      }, 3500);
+        t.classList.add('-translate-y-2', 'opacity-0');
+        setTimeout(() => t.remove(), 250);
+      }, 2400);
     }
 
     function escapeHtml(str) {
