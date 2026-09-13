@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Tasik Excellent</title>
+  <title>Tasik Excellent - Check In Portal</title>
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -83,12 +83,12 @@
         </div>
         <div>
           <div class="flex items-center gap-1.5">
-            <h1 class="text-xs font-black tracking-tight text-white uppercase">TASIK EXCELLENT </h1>
+            <h1 class="text-xs font-black tracking-tight text-white uppercase">TASIK EXCELLENT</h1>
             <span class="text-[9px] px-1.5 py-0.2 bg-emerald-500/20 text-emerald-300 rounded-md font-bold">TSK</span>
           </div>
-          <h2 class="text-xs font-black tracking-tight text-white uppercase">CHECK IN PORTAL </h2>
-          <p id="geoPillStatus" class="text-[10px] text-slate-400 flex items-center gap-1">
-            <i data-lucide="map-pin" class="w-2.5 h-2.5 text-emerald-400"></i> Memindai Geotag...
+          <h2 class="text-xs font-black tracking-tight text-white uppercase">CHECK IN PORTAL</h2>
+          <p id="geoPillStatus" class="text-[10px] text-amber-400 font-medium flex items-center gap-1">
+            <i data-lucide="loader-2" class="w-2.5 h-2.5 animate-spin"></i> Menghubungkan GPS...
           </p>
         </div>
       </div>
@@ -129,7 +129,27 @@
         </div>
       </div>
 
-      <!-- Modern Camera Viewport (Stories Ratio) -->
+      <!-- KOTAK STATUS KOORDINAT / GPS LOCK -->
+      <div id="geoLockNoticeBox" class="p-3 rounded-2xl bg-amber-500/10 border border-amber-500/30 transition-all">
+        <div class="flex items-start justify-between gap-2">
+          <div class="flex items-start gap-2.5">
+            <div id="geoLockIcon" class="w-7 h-7 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0 mt-0.5">
+              <i data-lucide="map-pin-off" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <h4 id="geoLockTitle" class="text-xs font-black text-amber-300 uppercase tracking-wide">KOORDINAT BELUM TERBACA</h4>
+              <p id="geoLockDesc" class="text-[10px] text-amber-200/80 leading-relaxed mt-0.5">
+                Sistem belum dapat mendeteksi koordinat Anda. Aktifkan lokasi (GPS) dan klik tombol kunci lokasi di samping.
+              </p>
+            </div>
+          </div>
+          <button type="button" onclick="requestLocation(true)" class="px-2.5 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 font-bold text-[10px] shrink-0 active:scale-95 transition-all">
+            Kunci GPS
+          </button>
+        </div>
+      </div>
+
+      <!-- Modern Camera Viewport -->
       <div class="relative rounded-3xl overflow-hidden bg-slate-950 border border-app-border shadow-xl aspect-[4/3] flex items-center justify-center">
         <video id="webcamVideo" autoplay playsinline muted class="w-full h-full object-cover video-mirror"></video>
         <img id="photoPreviewImg" alt="Preview Selfie" class="w-full h-full object-cover hidden" />
@@ -154,7 +174,7 @@
           </button>
         </div>
 
-        <!-- Floating Camera Shutter & Actions Inside Viewport -->
+        <!-- Floating Camera Shutter & Actions -->
         <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-auto">
           <button type="button" onclick="switchCameraFacing()" class="w-10 h-10 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-white flex items-center justify-center active:scale-90 transition-all">
             <i data-lucide="refresh-cw" class="w-4 h-4"></i>
@@ -228,18 +248,22 @@
         <!-- Inset Field: Outlet & Shift Picker -->
         <div class="bg-app-card rounded-2xl p-3 border border-app-border grid grid-cols-2 gap-2">
           <div>
-            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1">Resto</span>
-            <select id="divisionSelect" required class="w-full bg-slate-950/70 border border-slate-800 rounded-xl px-2.5 py-2.5 text-xs font-semibold text-white focus:outline-none focus:border-emerald-500">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Resto</span>
+              <span id="badgeRestoStatus" class="hidden text-[8px] font-extrabold uppercase px-1.5 py-0.5 rounded tracking-wider"></span>
+            </div>
+            <select id="divisionSelect" onchange="updateRestoInfo()" required class="w-full bg-slate-950/70 border border-slate-800 rounded-xl px-2.5 py-2.5 text-xs font-semibold text-white focus:outline-none focus:border-emerald-500">
               <option value="" disabled selected>Pilih Outlet</option>
               <option value="LAZATTO MANGKUBUMI">LAZATTO MANGKUBUMI</option>
               <option value="LAZATTO KERKOF">LAZATTO KERKOF</option>
+              <option value="LAZATTO CIAWI TASIK">LAZATTO CIAWI TSK</option>
               <option value="LAZATTO RAJAPOLAH">LAZATTO RAJAPOLAH</option>
               <option value="LAZATTO RAJAPOLAH SATELIT">LAZATTO RAJAPOLAH SATELIT</option>
-              <option value="LAZATTO CIAWI TASIK">LAZATTO CIAWI TSK</option>
               <option value="NGEUMI MANGKUBUMI">NGEUMI MANGKUBUMI</option>
               <option value="NGEUMI INDIHIANG">NGEUMI INDIHIANG</option>
               <option value="NGEUMI CIGEUREUNG">NGEUMI CIGEUREUNG</option>
             </select>
+            <input type="hidden" id="restoOperatingHours" value="REGULER">
           </div>
 
           <div>
@@ -255,9 +279,11 @@
           </div>
         </div>
 
-        <!-- Hidden Time Trackers -->
+        <!-- Hidden Trackers & Locked Coordinates -->
         <input type="hidden" id="inputTanggal">
         <input type="hidden" id="inputJam">
+        <input type="hidden" id="inputLatitude">
+        <input type="hidden" id="inputLongitude">
 
         <!-- Inset Field: Catatan -->
         <div class="bg-app-card rounded-2xl p-3 border border-app-border">
@@ -265,10 +291,10 @@
           <textarea id="attendanceNotes" rows="2" placeholder="Tuliskan catatan kerja / keterangan izin..." class="w-full bg-slate-950/70 border border-slate-800 rounded-xl p-2.5 text-xs font-medium text-white focus:outline-none focus:border-emerald-500 placeholder:text-slate-600 resize-none"></textarea>
         </div>
 
-        <!-- Action Button Submit -->
-        <button id="btnSubmitAttendance" type="submit" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 active:scale-98 text-slate-950 font-black text-xs uppercase tracking-wider shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2 transition-all">
-          <i data-lucide="send" class="w-4 h-4"></i>
-          <span id="submitButtonText">Verifikasi & Check-In Sekarang</span>
+        <!-- Action Button Submit (Terkunci jika GPS belum ada) -->
+        <button id="btnSubmitAttendance" type="submit" disabled class="w-full py-3.5 rounded-2xl bg-slate-800 text-slate-500 cursor-not-allowed font-black text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2 transition-all">
+          <i data-lucide="lock" class="w-4 h-4" id="submitIcon"></i>
+          <span id="submitButtonText">Menunggu Koordinat GPS...</span>
         </button>
       </form>
     </main>
@@ -369,12 +395,37 @@
   <script>
     const DEFAULT_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzfCLlxaKIEM0ZDf8Z0nhznCewJepOyiq5LmI6oAA_HXm_VP9ioYfwizlyXTq9TcZCVdQ/exec";
 
-    let currentGeo = { lat: null, lng: null, accuracy: null, ready: false };
+    // Daftar Outlet 24 Jam
+    const OUTLETS_24_JAM = [
+      "LAZATTO KERKOF",
+      "LAZATTO MANGKUBUMI",
+      "LAZATTO CIAWI TASIK"
+    ];
+
+    let currentGeo = { lat: null, lng: null, accuracy: null, locked: false };
     let capturedPhotoBase64 = null;
     let videoStream = null;
     let currentFacingMode = 'user';
     const STORAGE_KEY_CONFIG = 'presensi_google_script_url';
     const STORAGE_KEY_HISTORY = 'presensi_history_records';
+
+    function updateRestoInfo() {
+      const selectedOutlet = document.getElementById('divisionSelect').value;
+      const badge = document.getElementById('badgeRestoStatus');
+      const hiddenInput = document.getElementById('restoOperatingHours');
+
+      const is24Jam = OUTLETS_24_JAM.includes(selectedOutlet);
+
+      if (is24Jam) {
+        badge.textContent = "24 JAM";
+        badge.className = "text-[8px] font-extrabold uppercase px-1.5 py-0.5 rounded tracking-wider bg-amber-400/20 text-amber-300 border border-amber-400/40 inline-block shadow-xs";
+        hiddenInput.value = "24 JAM";
+      } else {
+        badge.textContent = "REGULER";
+        badge.className = "text-[8px] font-extrabold uppercase px-1.5 py-0.5 rounded tracking-wider bg-slate-800 text-slate-400 border border-slate-700 inline-block";
+        hiddenInput.value = "REGULER";
+      }
+    }
 
     function switchTab(tab) {
       const vCheckIn = document.getElementById('tabCheckIn');
@@ -463,6 +514,11 @@
     }
 
     function takeSnapshot() {
+      if (!currentGeo.locked) {
+        triggerToast('Gagal! Koordinat lokasi belum terkunci.', 'error');
+        return;
+      }
+
       const video = document.getElementById('webcamVideo');
       const canvas = document.getElementById('photoCanvas');
       const preview = document.getElementById('photoPreviewImg');
@@ -496,7 +552,7 @@
       btnRet.classList.remove('hidden');
 
       dot.className = 'w-3 h-3 rounded-full bg-emerald-400 ring-4 ring-emerald-400/20';
-      triggerToast('Foto selfie terpasang!', 'success');
+      triggerToast('Foto selfie terpasang & terverifikasi!', 'success');
     }
 
     function retakeSnapshot() {
@@ -519,31 +575,112 @@
       dot.className = 'w-3 h-3 rounded-full bg-amber-400 ring-4 ring-amber-400/20 animate-ping';
     }
 
-    function requestLocation() {
+    // FUNGSI PENGUNCI LATITUDE & LONGITUDE
+    function requestLocation(isManual = false) {
       const pill = document.getElementById('geoPillStatus');
+      const box = document.getElementById('geoLockNoticeBox');
+      const boxIcon = document.getElementById('geoLockIcon');
+      const boxTitle = document.getElementById('geoLockTitle');
+      const boxDesc = document.getElementById('geoLockDesc');
+      const btnSubmit = document.getElementById('btnSubmitAttendance');
+      const btnSubmitText = document.getElementById('submitButtonText');
+      const submitIcon = document.getElementById('submitIcon');
+
+      if (isManual) {
+        triggerToast('Mencari sinyal satelit GPS...', 'warning');
+      }
+
+      pill.innerHTML = `<i data-lucide="loader-2" class="w-2.5 h-2.5 animate-spin"></i> Mengunci koordinat...`;
+      lucide.createIcons();
+
       if (!navigator.geolocation) {
-        pill.innerHTML = `<span class="text-rose-400">GPS Tidak Ada</span>`;
+        applyGpsFailedState("Fitur Geolocation tidak didukung di perangkat ini.");
         return;
       }
 
       navigator.geolocation.getCurrentPosition(
         pos => {
           const { latitude, longitude, accuracy } = pos.coords;
+
           currentGeo = {
-            lat: latitude.toFixed(6),
-            lng: longitude.toFixed(6),
+            lat: latitude.toFixed(7),
+            lng: longitude.toFixed(7),
             accuracy: Math.round(accuracy),
-            ready: true
+            locked: true
           };
-          pill.innerHTML = `<i data-lucide="shield-check" class="w-2.5 h-2.5 text-emerald-400"></i> GPS Aktif (±${currentGeo.accuracy}m)`;
+
+          // Pasang nilai ke hidden input
+          document.getElementById('inputLatitude').value = currentGeo.lat;
+          document.getElementById('inputLongitude').value = currentGeo.lng;
+
+          // Perbarui Tampilan Pill Status Atas
+          pill.innerHTML = `<i data-lucide="shield-check" class="w-2.5 h-2.5 text-emerald-400"></i> GPS Terkunci (±${currentGeo.accuracy}m)`;
+          pill.className = "text-[10px] text-emerald-400 font-bold flex items-center gap-1";
+
+          // Perbarui Kotak Status Lokasi Menjadi Hijau / Sukses
+          box.className = "p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 transition-all";
+          boxIcon.className = "w-7 h-7 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5";
+          boxIcon.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4"></i>`;
+          boxTitle.className = "text-xs font-black text-emerald-300 uppercase tracking-wide";
+          boxTitle.textContent = "KOORDINAT TERKUNCI OLEH SISTEM";
+          boxDesc.className = "text-[10px] text-emerald-200/80 leading-relaxed mt-0.5 font-mono";
+          boxDesc.textContent = `Lat: ${currentGeo.lat} | Long: ${currentGeo.lng} (Akurasi: ±${currentGeo.accuracy}m)`;
+
+          // Buka Kunci Tombol Submit
+          btnSubmit.disabled = false;
+          btnSubmit.className = "w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 active:scale-98 text-slate-950 font-black text-xs uppercase tracking-wider shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2 transition-all cursor-pointer";
+          btnSubmitText.textContent = "Verifikasi & Check-In Sekarang";
+          submitIcon.setAttribute('data-lucide', 'send');
+
           lucide.createIcons();
+          if (isManual) triggerToast('Koordinat GPS berhasil dikunci!', 'success');
         },
-        () => {
-          currentGeo.ready = false;
-          pill.innerHTML = `<span class="text-rose-400">GPS Terbatas</span>`;
+        err => {
+          let pesan = "GPS belum aktif / Izin lokasi ditolak.";
+          if (err.code === 1) pesan = "Akses lokasi ditolak. Buka pengaturan browser & izinkan akses GPS.";
+          else if (err.code === 2) pesan = "Sinyal GPS tidak terdeteksi. Pindahlah ke area terbuka.";
+          else if (err.code === 3) pesan = "Waktu pencarian GPS habis. Silakan coba lagi.";
+          applyGpsFailedState(pesan);
         },
-        { enableHighAccuracy: true, timeout: 8000 }
+        { enableHighAccuracy: true, timeout: 12000, maximumAge: 0 }
       );
+    }
+
+    function applyGpsFailedState(errorMsg) {
+      currentGeo.locked = false;
+      currentGeo.lat = null;
+      currentGeo.lng = null;
+
+      document.getElementById('inputLatitude').value = '';
+      document.getElementById('inputLongitude').value = '';
+
+      const pill = document.getElementById('geoPillStatus');
+      pill.innerHTML = `<i data-lucide="alert-triangle" class="w-2.5 h-2.5 text-rose-400"></i> GPS Belum Terbaca`;
+      pill.className = "text-[10px] text-rose-400 font-bold flex items-center gap-1";
+
+      const box = document.getElementById('geoLockNoticeBox');
+      const boxIcon = document.getElementById('geoLockIcon');
+      const boxTitle = document.getElementById('geoLockTitle');
+      const boxDesc = document.getElementById('geoLockDesc');
+      const btnSubmit = document.getElementById('btnSubmitAttendance');
+      const btnSubmitText = document.getElementById('submitButtonText');
+      const submitIcon = document.getElementById('submitIcon');
+
+      box.className = "p-3 rounded-2xl bg-rose-500/10 border border-rose-500/30 transition-all";
+      boxIcon.className = "w-7 h-7 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center shrink-0 mt-0.5";
+      boxIcon.innerHTML = `<i data-lucide="map-pin-off" class="w-4 h-4"></i>`;
+      boxTitle.className = "text-xs font-black text-rose-400 uppercase tracking-wide";
+      boxTitle.textContent = "KOORDINAT BELUM TERBACA OLEH SISTEM";
+      boxDesc.className = "text-[10px] text-rose-200/80 leading-relaxed mt-0.5";
+      boxDesc.textContent = errorMsg;
+
+      // Kunci Tombol Submit
+      btnSubmit.disabled = true;
+      btnSubmit.className = "w-full py-3.5 rounded-2xl bg-slate-800 text-slate-500 cursor-not-allowed font-black text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2 transition-all";
+      btnSubmitText.textContent = "Terkunci: GPS Belum Terbaca";
+      submitIcon.setAttribute('data-lucide', 'lock');
+
+      lucide.createIcons();
     }
 
     function updateAttendanceVisual() {
@@ -572,19 +709,27 @@
     async function handleFormSubmit(e) {
       e.preventDefault();
 
+      // VALIDASI KOORDINAT TERKUNCI SEBELUM MENGIRIM
+      if (!currentGeo.locked || !currentGeo.lat || !currentGeo.lng) {
+        triggerToast('Gagal! Koordinat belum terkunci oleh sistem. Silakan klik "Kunci GPS".', 'error');
+        requestLocation(true);
+        return;
+      }
+
+      if (!capturedPhotoBase64) {
+        triggerToast('Wajib mengambil foto selfie sebelum check-in!', 'warning');
+        return;
+      }
+
       const name = document.getElementById('employeeName').value.trim();
       const nip = document.getElementById('employeeId').value.trim();
       const cabang = document.getElementById('divisionSelect').value;
+      const jamOperasional = document.getElementById('restoOperatingHours').value || 'REGULER';
       const shift = document.getElementById('shiftSelect').value;
       const type = document.querySelector('input[name="attendanceType"]:checked').value;
       const notes = document.getElementById('attendanceNotes').value.trim();
       const tgl = document.getElementById('inputTanggal').value;
       const jam = document.getElementById('inputJam').value;
-
-      if (!capturedPhotoBase64) {
-        triggerToast('Ambil selfie terlebih dahulu!', 'warning');
-        return;
-      }
 
       const btn = document.getElementById('btnSubmitAttendance');
       const btnTxt = document.getElementById('submitButtonText');
@@ -592,7 +737,7 @@
       btnTxt.textContent = 'Memverifikasi Presensi...';
 
       const timestamp = new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' });
-      const mapsUrl = currentGeo.ready ? `https://www.google.com/maps?q=${currentGeo.lat},${currentGeo.lng}` : '-';
+      const mapsUrl = `https://www.google.com/maps?q=${currentGeo.lat},${currentGeo.lng}`;
 
       const payload = {
         timestamp,
@@ -601,11 +746,12 @@
         nama: name,
         nip: nip,
         cabang: cabang,
+        jamOperasional: jamOperasional,
         shift: shift,
         tipe: type,
         catatan: notes || '-',
-        latitude: currentGeo.lat || '-',
-        longitude: currentGeo.lng || '-',
+        latitude: currentGeo.lat,
+        longitude: currentGeo.lng,
         mapsUrl: mapsUrl,
         hasPhoto: true,
         photoData: capturedPhotoBase64
@@ -626,7 +772,7 @@
 
       saveLocalLog({ ...payload, id: 'ID-' + Date.now() });
 
-      triggerToast(`Presensi ${name} Tercatat!`, 'success');
+      triggerToast(`Presensi ${name} (${jamOperasional}) Berhasil!`, 'success');
       document.getElementById('attendanceNotes').value = '';
       retakeSnapshot();
 
@@ -662,17 +808,22 @@
       wrap.innerHTML = recs.map(item => {
         const isMasuk = item.tipe.includes('Masuk');
         const badgeColor = isMasuk ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' : 'bg-amber-500/20 text-amber-400 border-amber-500/30';
+        const is24Jam = item.jamOperasional === '24 JAM';
 
         return `
           <div class="p-3.5 bg-app-card rounded-2xl border border-app-border space-y-2">
             <div class="flex items-center justify-between">
               <span class="text-[10px] font-mono text-slate-400">${item.timestamp}</span>
-              <span class="px-2 py-0.5 rounded-full border text-[9px] font-black ${badgeColor}">${item.tipe}</span>
+              <div class="flex items-center gap-1.5">
+                ${is24Jam ? `<span class="px-1.5 py-0.2 rounded bg-amber-400/20 text-amber-300 border border-amber-400/30 text-[8px] font-black">24 JAM</span>` : ''}
+                <span class="px-2 py-0.5 rounded-full border text-[9px] font-black ${badgeColor}">${item.tipe}</span>
+              </div>
             </div>
             <div class="flex items-center justify-between">
               <div>
                 <h4 class="text-xs font-bold text-white">${escapeHtml(item.nama)}</h4>
                 <p class="text-[10px] text-slate-400">${escapeHtml(item.cabang)} &bull; ${escapeHtml(item.shift)}</p>
+                <p class="text-[9px] font-mono text-slate-500 mt-0.5">${item.latitude}, ${item.longitude}</p>
               </div>
               ${item.photoData ? `<button type="button" onclick="viewPhotoModal('${item.id}')" class="px-2.5 py-1 bg-slate-800 rounded-xl text-[10px] font-bold text-slate-300 border border-white/5">Foto</button>` : ''}
             </div>
@@ -728,8 +879,8 @@
     function exportHistoryToCSV() {
       const records = getLocalLogs();
       if (records.length === 0) return triggerToast('Tidak ada data ekspor.', 'warning');
-      const headers = ['ID,Waktu,Nama,NIP,Cabang,Shift,Tipe,Catatan'];
-      const rows = records.map(r => `"${r.id}","${r.timestamp}","${r.nama}","${r.nip}","${r.cabang}","${r.shift}","${r.tipe}","${r.catatan}"`);
+      const headers = ['ID,Waktu,Nama,NIP,Cabang,Status_Operasional,Shift,Tipe,Catatan,Latitude,Longitude,MapsUrl'];
+      const rows = records.map(r => `"${r.id}","${r.timestamp}","${r.nama}","${r.nip}","${r.cabang}","${r.jamOperasional || 'REGULER'}","${r.shift}","${r.tipe}","${r.catatan}","${r.latitude}","${r.longitude}","${r.mapsUrl}"`);
       const blob = new Blob(['\uFEFF' + [headers, ...rows].join('\n')], { type: 'text/csv;charset=utf-8;' });
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
